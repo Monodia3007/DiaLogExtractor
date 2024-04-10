@@ -10,13 +10,30 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
+/**
+ * The DialogExtractor class extends the Application class and serves as the entry point for the application.
+ * It displays the main scene of the Dialog Extractor application.
+ */
 public class DialogExtractor extends Application {
     private static final String STYLESHEET = new PrimerDark().getUserAgentStylesheet();
 
+    /**
+     * The main method is the entry point of the application.
+     * It launches the DialogExtractor application
+     * by calling the launch method with the provided command line arguments.
+     *
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Starts the application by setting the user agent stylesheet, loading the FXML file for the main scene,
+     * setting the scene, setting the title of the stage, and displaying the stage.
+     *
+     * @param stage the primary stage for this application
+     */
     @Override
     public void start(@NotNull Stage stage) {
         Application.setUserAgentStylesheet(STYLESHEET);
