@@ -12,15 +12,29 @@ import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 
+/**
+ * The DialogExtractor class is an application that extracts dialog from a Minecraft log.
+ */
 public class DialogExtractor extends Application {
 
     private static final String STYLESHEET = new PrimerDark().getUserAgentStylesheet();
     private static final Insets DEFAULT_MARGIN = new Insets(10, 10, 10, 10);
 
+    /**
+     * The main method is the entry point of the application.
+     * It calls the `launch` method to start the application.
+     *
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Starts the application and displays the Dialog Extractor UI.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(@NotNull Stage stage) {
         Application.setUserAgentStylesheet(STYLESHEET);
@@ -40,6 +54,14 @@ public class DialogExtractor extends Application {
         stage.show();
     }
 
+    /**
+     * Creates a TextArea with the specified editable and promptText properties.
+     *
+     * @param isEditable The flag indicating whether the TextArea should be editable.
+     * @param promptText The prompt text to display when the TextArea is empty.
+     *
+     * @return A new instance of TextArea with the specified properties.
+     */
     private @NotNull TextArea createTextArea(Boolean isEditable, String promptText) {
         TextArea textArea = new TextArea();
         textArea.setWrapText(true);
