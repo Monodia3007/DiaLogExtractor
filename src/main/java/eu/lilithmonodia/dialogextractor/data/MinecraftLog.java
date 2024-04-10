@@ -1,4 +1,4 @@
-package eu.lilithmonodia.dialogextractor;
+package eu.lilithmonodia.dialogextractor.data;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

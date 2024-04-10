@@ -6,4 +6,6 @@ module eu.lilithmonodia.dialogextractor {
 
     opens eu.lilithmonodia.dialogextractor to javafx.fxml;
     exports eu.lilithmonodia.dialogextractor;
+    exports eu.lilithmonodia.dialogextractor.data;
+    opens eu.lilithmonodia.dialogextractor.data to javafx.fxml;
 }
