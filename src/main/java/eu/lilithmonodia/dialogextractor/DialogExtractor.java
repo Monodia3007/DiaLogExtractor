@@ -44,6 +44,7 @@ public class DialogExtractor extends Application {
             Parent root = loader.load();
             stage.setScene(new Scene(root));
             stage.setTitle("Dialog Extractor");
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             LOGGER.severe("Error loading FXML file: " + e.getMessage());
