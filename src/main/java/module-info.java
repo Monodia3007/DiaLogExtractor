@@ -3,6 +3,7 @@ module eu.lilithmonodia.dialogextractor {
     requires javafx.fxml;
     requires atlantafx.base;
     requires org.jetbrains.annotations;
+    requires java.logging;
 
     opens eu.lilithmonodia.dialogextractor to javafx.fxml;
     exports eu.lilithmonodia.dialogextractor;

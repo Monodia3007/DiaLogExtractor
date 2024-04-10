@@ -9,12 +9,14 @@ import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * The DialogExtractor class extends the Application class and serves as the entry point for the application.
  * It displays the main scene of the Dialog Extractor application.
  */
 public class DialogExtractor extends Application {
+    private static final Logger LOGGER = Logger.getLogger(DialogExtractor.class.getName());
     private static final String STYLESHEET = new PrimerDark().getUserAgentStylesheet();
 
     /**
@@ -44,7 +46,7 @@ public class DialogExtractor extends Application {
             stage.setTitle("Dialog Extractor");
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.severe("Error loading FXML file: " + e.getMessage());
         }
     }
 }

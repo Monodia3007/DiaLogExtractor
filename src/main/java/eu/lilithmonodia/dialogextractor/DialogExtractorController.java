@@ -12,6 +12,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
@@ -19,6 +20,7 @@ import java.util.zip.GZIPInputStream;
  * Controller class for the Dialog Extractor UI.
  */
 public class DialogExtractorController {
+    private static final Logger LOGGER = Logger.getLogger(DialogExtractorController.class.getName());
 
     @FXML
     private Button extractButton;
@@ -79,17 +81,11 @@ public class DialogExtractorController {
         }
 
         try {
-            String content;
-            switch (getFileExtension(file)) {
-                case ".gz":
-                    content = decompressGzip(file);
-                    break;
-                case ".log":
-                    content = new String(Files.readAllBytes(file.toPath()), Charset.forName("windows-1252"));
-                    break;
-                default:
-                    throw new IOException("Unsupported file extension");
-            }
+            String content = switch (getFileExtension(file)) {
+                case ".gz" -> decompressGzip(file);
+                case ".log" -> Files.readString(file.toPath(), Charset.forName("windows-1252"));
+                default -> throw new IOException("Unsupported file extension");
+            };
 
             MinecraftLog minecraftLog = new MinecraftLog(content);
             String outputText = minecraftLog.extractDialog().log();
@@ -101,7 +97,7 @@ public class DialogExtractorController {
             }
         } catch (IOException e) {
             // Handle the exception properly (show a warning to the user, or something similar)
-            e.printStackTrace();
+            LOGGER.severe("An error occurred while processing the file: " + e.getMessage());
         }
     }
 
