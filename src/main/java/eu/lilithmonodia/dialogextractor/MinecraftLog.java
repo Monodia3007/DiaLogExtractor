@@ -1,37 +1,62 @@
 package eu.lilithmonodia.dialogextractor;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MinecraftLog {
-    private String log;
+/**
+ * Represents a Minecraft log.
+ */
+public record MinecraftLog(String log) {
 
-    public MinecraftLog(String log) {
-        this.log = log;
-    }
+    public static final String COLOUR_CODE_REGEX = "§.";
 
-    public String getLog() {
-        return log;
-    }
+    /**
+     * Extracts the dialog from the Minecraft log.
+     *
+     * @return The extracted dialog as a MinecraftLog object.
+     */
+    @Contract(" -> new")
+    public @NotNull MinecraftLog extractDialog() {
 
-    public void setLog(String log) {
-        this.log = log;
-    }
+        Pattern dialogPattern = Pattern.compile("^\\[\\d*:\\d*:\\d*] \\[Render thread/INFO]: \\[System] \\[CHAT].*$", Pattern.MULTILINE);
+        Pattern chatPattern = Pattern.compile("\\[\\d*:\\d*:\\d*] \\[Render thread/INFO]: \\[System] \\[CHAT]");
 
-    public MinecraftLog extractDialog() {
         List<String> extractedDialogs = new ArrayList<>();
-        Pattern pattern = Pattern.compile("^\\[\\d{2}:\\d{2}:\\d{2}] \\[Render thread/INFO]: \\[System] \\[CHAT].*$", Pattern.MULTILINE);
-        Matcher matcher = pattern.matcher(this.log);
-        while (matcher.find()) {
-            String extractedDialog = matcher.group();
-            Pattern chatPattern = Pattern.compile("\\[\\d{2}:\\d{2}:\\d{2}] \\[Render thread/INFO]: \\[System] \\[CHAT]");
-            Matcher chatMatcher = chatPattern.matcher(extractedDialog);
-            String cleanChat = chatMatcher.replaceAll("");
-            cleanChat = cleanChat.replaceAll("§.", ""); // Removes "§" and the following character
-            extractedDialogs.add(cleanChat.trim());
-        }
+        cleanAndExtractDialog(chatPattern, dialogPattern, extractedDialogs);
         return new MinecraftLog(String.join("\n", extractedDialogs));
+    }
+
+    /**
+     * Removes unwanted characters and extracts dialog from the Minecraft log.
+     *
+     * @param chatPattern   The pattern used to match the chat line in the log.
+     * @param dialogPattern The pattern used to match the dialog in the log.
+     * @param dialogList    The list to store the extracted dialog lines.
+     */
+    private void cleanAndExtractDialog(Pattern chatPattern, @NotNull Pattern dialogPattern, List<String> dialogList) {
+        Matcher matcher = dialogPattern.matcher(this.log);
+        while (matcher.find()) {
+            dialogList.add(cleanChatLine(chatPattern, matcher.group()));
+        }
+    }
+
+    /**
+     * Removes unwanted characters from a chat line based on a given pattern.
+     *
+     * @param chatPattern The pattern used to match the chat line in the log.
+     * @param rawChatLine The raw chat line to be cleaned.
+     *
+     * @return The cleaned chat line.
+     */
+    private @NotNull String cleanChatLine(@NotNull Pattern chatPattern, String rawChatLine) {
+        return chatPattern.matcher(rawChatLine)
+                .replaceAll("")
+                .replaceAll(COLOUR_CODE_REGEX, "")
+                .trim();
     }
 }

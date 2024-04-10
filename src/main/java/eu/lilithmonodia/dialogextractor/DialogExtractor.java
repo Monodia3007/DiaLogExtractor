@@ -11,38 +11,41 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
+
 public class DialogExtractor extends Application {
+
+    private static final String STYLESHEET = new PrimerDark().getUserAgentStylesheet();
+    private static final Insets DEFAULT_MARGIN = new Insets(10, 10, 10, 10);
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(@NotNull Stage stage) {
-        Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+        Application.setUserAgentStylesheet(STYLESHEET);
         HBox root = new HBox();
         root.setAlignment(Pos.CENTER);
-
-        TextArea input = new TextArea();
-        input.setWrapText(true);
-        input.setPromptText("Paste Minecraft log here");
-        HBox.setMargin(input, new Insets(10, 10, 10, 10));
-
-        TextArea output = new TextArea();
-        output.setWrapText(true);
-        output.setEditable(false);
-        HBox.setMargin(output, new Insets(10, 10, 10, 10));
-
+        TextArea input = createTextArea(true, "Paste Minecraft log here");
+        TextArea output = createTextArea(false, "");
         Button extract = new Button("Extract");
         extract.setOnAction(event -> {
             MinecraftLog minecraftLog = new MinecraftLog(input.getText());
-            output.setText(minecraftLog.extractDialog().getLog());
+            output.setText(minecraftLog.extractDialog().log());
         });
-
         root.getChildren().addAll(input, extract, output);
-
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Dialog Extractor");
         stage.show();
+    }
+
+    private @NotNull TextArea createTextArea(Boolean isEditable, String promptText) {
+        TextArea textArea = new TextArea();
+        textArea.setWrapText(true);
+        textArea.setEditable(isEditable);
+        textArea.setPromptText(promptText);
+        HBox.setMargin(textArea, DEFAULT_MARGIN);
+        return textArea;
     }
 }
