@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.stream.Collectors;
@@ -71,21 +72,25 @@ public class DialogExtractor extends Application {
 
     private File chooseFile(Stage stage) {
         FileChooser fileChooser = new FileChooser();
-        setupFileChooser(fileChooser, "Open Minecraft Log File", "GZ files (*.gz)", "*.gz");
+        setupFileChooser(fileChooser, "Open Minecraft Log File", "GZ files (*.gz), Log files (*.log)", "*.gz", "*.log");
         return fileChooser.showOpenDialog(stage);
     }
 
-    private void processFile(File file, Stage stage, @NotNull TextArea originalContentArea, @NotNull TextArea processedContentArea) {
+    private void processFile(@NotNull File file, Stage stage, @NotNull TextArea originalContentArea, @NotNull TextArea processedContentArea) {
         try {
-            String content = decompressGzip(file);
+            String content;
+            if (file.getName().endsWith(".gz")) {
+                content = decompressGzip(file);
+            } else if (file.getName().endsWith(".log")) {
+                content = new String(Files.readAllBytes(file.toPath()), Charset.forName("windows-1252"));
+            } else {
+                throw new IOException("Unsupported file extension");
+            }
             MinecraftLog minecraftLog = new MinecraftLog(content);
             String outputText = minecraftLog.extractDialog().log();
-            originalContentArea.setText(content);  // Display original content in the TextArea
-            processedContentArea.setText(outputText);  // Display processed content in the TextArea
-
-            // Prompt user to choose output file
+            originalContentArea.setText(content);
+            processedContentArea.setText(outputText);
             File outFile = chooseOutputFile(stage);
-            // Create output file or append if it already exists
             if (outFile != null) {
                 writeToFile(outFile, outputText);
             }
