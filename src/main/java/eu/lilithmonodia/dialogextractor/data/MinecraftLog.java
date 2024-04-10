@@ -37,7 +37,14 @@ public record MinecraftLog(String log) {
     private void cleanAndExtractDialog(List<String> dialogList) {
         Matcher matcher = MinecraftLog.DIALOG_PATTERN.matcher(this.log);
         while (matcher.find()) {
-            dialogList.add(cleanChatLine(matcher.group()));
+            String cleanedLine = cleanChatLine(matcher.group());
+
+            // If cleaned line equals to "Shaders Reloaded!", skip this iteration
+            if ("Shaders Reloaded!".equals(cleanedLine)) {
+                continue;
+            }
+
+            dialogList.add(cleanedLine);
         }
     }
 
