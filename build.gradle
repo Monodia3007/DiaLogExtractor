@@ -1,0 +1,110 @@
+// Plugin definition - these plugins enable necessary functionalities to complete different stages of the build
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.javamodularity.moduleplugin' version '1.8.12'
+    id 'org.openjfx.javafxplugin' version '0.0.14'
+    id 'org.beryx.jlink' version '2.25.0'
+    id 'com.github.johnrengelman.shadow' version '8.0.0'
+    id "org.sonarqube" version "4.4.1.3373"
+    id 'jacoco'
+}
+
+// Basic Metadata - This section contains basic metadata for your project.
+group = 'eu.lilithmonodia'
+version = '1.2.2'
+
+// Indicate where Gradle should look for dependencies
+repositories {
+    mavenCentral() // Gradle should use the central Maven repository for dependencies
+}
+
+// Source & Target Java Version
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+// Repositories - Specify which repositories gradle will use to fetch project dependencies.
+repositories {
+    mavenCentral()
+}
+
+// Dependencies - Declaring project dependencies (both runtime and test scope).
+dependencies {
+    // Indicate libraries the project needs to compile and run
+    implementation 'org.jetbrains:annotations:24.0.0'
+    implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+    implementation 'io.github.mkpaz:atlantafx-base:2.0.1'
+}
+
+// Jar Config - Configurations for the `Jar` tasks.
+jar {
+    manifest {
+        attributes 'Main-Class': 'eu.lilithmonodia.dialogextractor.Launcher'
+        attributes 'Main-Module': 'eu.lilithmonodia.dialogextractor'
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+// Application Configuration - Details of the application's main entry.
+application {
+    mainModule = 'eu.lilithmonodia.dialogextractor'
+    mainClass = 'eu.lilithmonodia.dialogextractor.Launcher'
+}
+
+// JavaFX Configuration - JavaFX related configurations.
+javafx {
+    version = '17.0.7'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+// Configures the `jlink` task to create a custom Java runtime image
+jlink {
+    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages', '--add-modules', 'org.apache.logging.log4j', '--add-modules', 'org.postgresql.jdbc']
+    forceMerge 'log4j'
+    launcher {
+        name = 'Dialog Extractor'
+        mainClassName = 'eu.lilithmonodia.dialogextractor.Launcher'
+    }
+    jpackage {
+        if (org.gradle.internal.os.OperatingSystem.current().windows) {
+            installerOptions = ['--win-shortcut', '--win-shortcut-prompt', '--win-menu', '--win-dir-chooser']
+        } else if (org.gradle.internal.os.OperatingSystem.current().macOsX) {
+            installerOptions = ['--mac-package-name', 'DialogExtractor', '--mac-package-identifier', 'eu.lilithmonodia.winestock']
+        } else {
+            installerOptions = ['--linux-shortcut', '--linux-menu-group', 'WineStock']
+        }
+    }
+}
+
+// Shadow JAR - Config for creating a fat JAR or an uber JAR that contains all dependencies.
+shadowJar {
+    archiveBaseName.set('DialogExtractor')
+    archiveVersion.set("${version}")
+    archiveClassifier.set('shadow')
+    mergeServiceFiles()
+    manifest {
+        attributes 'Main-Class': 'eu.lilithmonodia.dialogextractor.Launcher'
+        attributes 'Main-Module': 'eu.lilithmonodia.dialogextractor'
+    }
+    configurations = [project.configurations.runtimeClasspath]
+}
+
+javadoc {
+    options {
+        encoding = 'UTF-8'
+        charSet = 'UTF-8'
+    }
+}
+
+sonar {
+    properties {
+        property "sonar.projectKey", "Monodia3007_Dialog-Extractor"
+        property "sonar.organization", "monodia3007"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
