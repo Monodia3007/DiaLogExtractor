@@ -19,6 +19,10 @@ repositories {
     mavenCentral() // Gradle should use the central Maven repository for dependencies
 }
 
+ext {
+    junitVersion = '5.9.2'
+}
+
 // Source & Target Java Version
 sourceCompatibility = '17'
 targetCompatibility = '17'
@@ -33,6 +37,9 @@ dependencies {
     // Indicate libraries the project needs to compile and run
     implementation 'org.jetbrains:annotations:24.0.0'
     implementation 'io.github.mkpaz:atlantafx-base:2.0.1'
+    // Indicate libraries needed for testing this project
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 }
 
 // Jar Config - Configurations for the `Jar` tasks.
@@ -104,5 +111,17 @@ sonar {
         property "sonar.projectKey", "Monodia3007_Dialog-Extractor"
         property "sonar.organization", "monodia3007"
         property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test // Make jacocoTestReport dependent on the successful completion of test task.
+    reports {
+        xml.required = true  // Enable XML report.
     }
 }
