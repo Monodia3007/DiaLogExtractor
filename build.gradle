@@ -69,6 +69,7 @@ jlink {
     }
     jpackage {
         if (org.gradle.internal.os.OperatingSystem.current().windows) {
+            imageOptions = ['--icon', 'src/main/resources/icon.ico']
             installerOptions = ['--win-shortcut', '--win-shortcut-prompt', '--win-menu', '--win-dir-chooser']
         } else if (org.gradle.internal.os.OperatingSystem.current().macOsX) {
             installerOptions = ['--mac-package-name', 'DialogExtractor', '--mac-package-identifier', 'eu.lilithmonodia.dialogextractor']
