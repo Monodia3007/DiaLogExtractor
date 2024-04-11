@@ -3,11 +3,10 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea"
             fx:controller="eu.lilithmonodia.dialogextractor.DialogExtractorController">
     <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1">
-        <TextArea fx:id="originalContentArea" editable="false" promptText="Original content will be displayed here..."
-                  wrapText="true">
+        <TextArea fx:id="originalContentArea" promptText="Original content will be displayed here..." wrapText="true">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </VBox.margin>

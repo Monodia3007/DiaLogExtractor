@@ -106,6 +106,7 @@ public class DialogExtractorController {
      * the originalContentArea text area.
      *
      * @param file The file to process.
+     *
      * @throws IllegalArgumentException If the input is not a file.
      */
     private void processFile(@NotNull File file) {
@@ -130,6 +131,7 @@ public class DialogExtractorController {
      * Retrieves the file extension of a given File object.
      *
      * @param file The File object for which to retrieve the file extension.
+     *
      * @return The file extension of the given File object, or an empty string if no extension is present.
      */
     private @NotNull String getFileExtension(@NotNull File file) {
@@ -145,6 +147,7 @@ public class DialogExtractorController {
      * Chooses a file from a file chooser dialog.
      *
      * @param window The window associated with the file chooser dialog.
+     *
      * @return The chosen file, or null if no file was selected.
      */
     private File chooseOutputFile(Window window) {
@@ -157,7 +160,9 @@ public class DialogExtractorController {
      * Decompresses a gzip file and returns the content as a string.
      *
      * @param file The file to decompress.
+     *
      * @return The decompressed content of the file.
+     *
      * @throws IOException If an I/O error occurs.
      */
     private String decompressGzip(File file) throws IOException {
@@ -172,10 +177,10 @@ public class DialogExtractorController {
     /**
      * Sets up the file chooser with the specified title, extension filter description, and extensions.
      *
-     * @param fileChooser              The file chooser to set up.
-     * @param dialogTitle              The title of the file chooser dialog.
+     * @param fileChooser                The file chooser to set up.
+     * @param dialogTitle                The title of the file chooser dialog.
      * @param extensionFilterDescription The description of the file extension filter.
-     * @param extensionFilterExtensions The file extensions to include in the file extension filter.
+     * @param extensionFilterExtensions  The file extensions to include in the file extension filter.
      */
     private void setupFileChooser(@NotNull FileChooser fileChooser, String dialogTitle, String extensionFilterDescription, String... extensionFilterExtensions) {
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
