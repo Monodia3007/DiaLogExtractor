@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Represents a Minecraft log.
@@ -22,8 +20,7 @@ public record MinecraftLog(String log) {
      */
     public static final String COLOUR_CODE_REGEX = "§.";
 
-    private static final Pattern DIALOG_PATTERN = Pattern.compile(".*\\[CHAT].*$", Pattern.MULTILINE);
-    private static final Pattern CHAT_PATTERN = Pattern.compile(".*\\[CHAT] ");
+    private static final String DIALOG_PREFIX = "[CHAT]";
 
     /**
      * Extracts the dialog from the Minecraft log.
@@ -45,18 +42,19 @@ public record MinecraftLog(String log) {
      * @param dialogList The list to store the extracted dialog lines.
      */
     private void cleanAndExtractDialog(List<String> dialogList) {
-        Matcher matcher = MinecraftLog.DIALOG_PATTERN.matcher(this.log);
-        while (matcher.find()) {
-            String cleanedLine = cleanChatLine(matcher.group());
-
-            if ("Shaders Reloaded!".equals(cleanedLine)) {
-                continue;
+        LOGGER.info("Starting the dialogue cleaning and extraction process...");
+        String[] lines = this.log.split("\n");
+        for (String line : lines) {
+            if (line.contains(DIALOG_PREFIX)) {
+                LOGGER.info("Processing a line with chat dialog...");
+                String cleanedLine = cleanChatLine(line);
+                if (!"Shaders Reloaded!".equals(cleanedLine)) {
+                    dialogList.add(cleanedLine);
+                    LOGGER.info("Line added to the dialog list.");
+                }
             }
-
-            dialogList.add(cleanedLine);
         }
-
-        LOGGER.log(Level.INFO, "Extracted dialog from Minecraft log -> dialog: [{0}]", dialogList);
+        LOGGER.info("Dialogue cleaning and extraction process completed.");
     }
 
     /**
@@ -66,13 +64,14 @@ public record MinecraftLog(String log) {
      *
      * @return The cleaned chat line.
      */
-    private @NotNull String cleanChatLine(String rawChatLine) {
-        String cleanedLine = MinecraftLog.CHAT_PATTERN.matcher(rawChatLine)
-                .replaceAll("")
-                .replaceAll(COLOUR_CODE_REGEX, "")
-                .trim();
-
-        LOGGER.log(Level.INFO, "Cleaned chat line -> rawChatLine: [{0}], cleanedLine: [{1}]", new Object[]{rawChatLine, cleanedLine});
+    private @NotNull String cleanChatLine(@NotNull String rawChatLine) {
+        LOGGER.info("Starting chat line cleaning process...");
+        int chatIndex = rawChatLine.indexOf(DIALOG_PREFIX);
+        String cleanedLine = (chatIndex != -1)
+                ? rawChatLine.substring(chatIndex + DIALOG_PREFIX.length())
+                : rawChatLine;
+        cleanedLine = cleanedLine.replaceAll(COLOUR_CODE_REGEX, "").trim();
+        LOGGER.log(Level.INFO, "Chat line cleaned: {0}", cleanedLine);
         return cleanedLine;
     }
 }
