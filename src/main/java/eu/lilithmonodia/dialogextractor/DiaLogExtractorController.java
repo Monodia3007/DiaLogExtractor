@@ -24,6 +24,7 @@ import java.util.zip.GZIPInputStream;
  */
 public class DiaLogExtractorController {
     private static final Logger LOGGER = Logger.getLogger(DiaLogExtractorController.class.getName());
+    private static final Charset WINDOWS_CHARSET = Charset.forName("windows-1252");
 
     @FXML
     private Button uploadButton;
@@ -121,23 +122,21 @@ public class DiaLogExtractorController {
      * @throws IllegalArgumentException If the input is not a file.
      */
     private void processFile(@NotNull File file) {
-        LOGGER.info("Attempting to process file ...");
-        if (!file.isFile()) {
+        logAction("Attempting to process file ...");
+        if (!Files.isRegularFile(file.toPath())) {
             throw new IllegalArgumentException("The input is not a file.");
         }
-
         try {
-            String content = switch (getFileExtension(file)) {
+            var content = switch (getFileExtension(file)) {
                 case ".gz" -> decompressGzip(file);
-                case ".log" -> Files.readString(file.toPath(), Charset.forName("windows-1252"));
+                case ".log" -> Files.readString(file.toPath(), WINDOWS_CHARSET);
                 default -> throw new IOException("Unsupported file extension");
             };
-
             originalContentArea.setText(content);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "An error occurred while processing the file.", e);
         }
-        LOGGER.info("File processing finished successfully.");
+        logAction("File processing finished successfully.");
     }
 
     /**
@@ -181,10 +180,14 @@ public class DiaLogExtractorController {
     private String decompressGzip(File file) throws IOException {
         try (InputStream fileIn = Files.newInputStream(file.toPath());
              GZIPInputStream gzipIn = new GZIPInputStream(fileIn);
-             Reader reader = new InputStreamReader(gzipIn, "windows-1252");
+             Reader reader = new InputStreamReader(gzipIn, WINDOWS_CHARSET);
              BufferedReader bufferedReader = new BufferedReader(reader)) {
             return bufferedReader.lines().collect(Collectors.joining("\n"));
         }
+    }
+
+    private void logAction(String action) {
+        LOGGER.info(action);
     }
 
     /**
@@ -208,12 +211,12 @@ public class DiaLogExtractorController {
      * @param content The content to write.
      */
     private void writeToFile(File file, String content) {
-        LOGGER.info("Attempting to write to file ...");
+        logAction("Attempting to write to file ...");
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
             writer.write(content);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "An error occurred while writing to the file.", e);
         }
-        LOGGER.info("File writing finished successfully.");
+        logAction("File writing finished successfully.");
     }
 }
