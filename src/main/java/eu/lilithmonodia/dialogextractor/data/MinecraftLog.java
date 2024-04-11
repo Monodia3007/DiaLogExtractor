@@ -22,8 +22,8 @@ public record MinecraftLog(String log) {
      */
     public static final String COLOUR_CODE_REGEX = "§.";
 
-    private static final Pattern DIALOG_PATTERN = Pattern.compile("^\\[\\d*:\\d*:\\d*] \\[Render thread/INFO]: \\[System] \\[CHAT].*$", Pattern.MULTILINE);
-    private static final Pattern CHAT_PATTERN = Pattern.compile("\\[\\d*:\\d*:\\d*] \\[Render thread/INFO]: \\[System] \\[CHAT]");
+    private static final Pattern DIALOG_PATTERN = Pattern.compile(".*\\[CHAT].*$", Pattern.MULTILINE);
+    private static final Pattern CHAT_PATTERN = Pattern.compile(".*\\[CHAT] ");
 
     /**
      * Extracts the dialog from the Minecraft log.
