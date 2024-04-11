@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -29,7 +30,9 @@ public class DialogExtractor extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        LOGGER.info("Application launch started...");
         launch(args);
+        LOGGER.info("Application launch completed.");
     }
 
     /**
@@ -40,18 +43,29 @@ public class DialogExtractor extends Application {
      */
     @Override
     public void start(@NotNull Stage stage) {
+        LOGGER.info("Preparing to start the application...");
+
         Application.setUserAgentStylesheet(STYLESHEET);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DialogExtractor.fxml"));
+            LOGGER.info("FXML file loaded successfully.");
+
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("icon.png")));
+            LOGGER.info("Application icon loaded successfully.");
+
             stage.getIcons().add(icon);
+
             Parent root = loader.load();
             stage.setScene(new Scene(root));
+
             stage.setTitle("Dialog Extractor");
+            LOGGER.info("Application title set successfully.");
+
             stage.setResizable(false);
             stage.show();
+            LOGGER.info("Application started successfully.");
         } catch (IOException e) {
-            LOGGER.severe("Error loading FXML file: " + e.getMessage());
+            LOGGER.log(Level.SEVERE, "Error loading FXML file", e);
         }
     }
 }

@@ -5,6 +5,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +14,7 @@ import java.util.regex.Pattern;
  * Represents a Minecraft log.
  */
 public record MinecraftLog(String log) {
+    private static final Logger LOGGER = Logger.getLogger(MinecraftLog.class.getName());
     public static final String COLOUR_CODE_REGEX = "§.";
 
     private static final Pattern DIALOG_PATTERN = Pattern.compile("^\\[\\d*:\\d*:\\d*] \\[Render thread/INFO]: \\[System] \\[CHAT].*$", Pattern.MULTILINE);
@@ -24,8 +27,10 @@ public record MinecraftLog(String log) {
      */
     @Contract(" -> new")
     public @NotNull MinecraftLog extractDialog() {
+        LOGGER.info("Extracting dialog from Minecraft log...");
         List<String> extractedDialogs = new ArrayList<>();
         cleanAndExtractDialog(extractedDialogs);
+        LOGGER.info("Dialog extraction completed successfully.");
         return new MinecraftLog(String.join("\n", extractedDialogs));
     }
 
@@ -39,13 +44,14 @@ public record MinecraftLog(String log) {
         while (matcher.find()) {
             String cleanedLine = cleanChatLine(matcher.group());
 
-            // If cleaned line equals to "Shaders Reloaded!", skip this iteration
             if ("Shaders Reloaded!".equals(cleanedLine)) {
                 continue;
             }
 
             dialogList.add(cleanedLine);
         }
+
+        LOGGER.log(Level.INFO, "Extracted dialog from Minecraft log -> dialog: [{0}]", dialogList);
     }
 
     /**
@@ -56,9 +62,12 @@ public record MinecraftLog(String log) {
      * @return The cleaned chat line.
      */
     private @NotNull String cleanChatLine(String rawChatLine) {
-        return MinecraftLog.CHAT_PATTERN.matcher(rawChatLine)
+        String cleanedLine = MinecraftLog.CHAT_PATTERN.matcher(rawChatLine)
                 .replaceAll("")
                 .replaceAll(COLOUR_CODE_REGEX, "")
                 .trim();
+
+        LOGGER.log(Level.INFO, "Cleaned chat line -> rawChatLine: [{0}], cleanedLine: [{1}]", new Object[]{rawChatLine, cleanedLine});
+        return cleanedLine;
     }
 }

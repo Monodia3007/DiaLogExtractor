@@ -13,6 +13,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
@@ -54,12 +55,14 @@ public class DialogExtractorController {
      * path is displayed in the uploadFilePath text field and the file is processed.
      */
     private void uploadFile() {
+        LOGGER.info("Attempting to upload file ...");
         Window window = uploadButton.getScene().getWindow();
         File file = chooseFile(window);
         if (file != null) {
             uploadFilePath.setText(file.getAbsolutePath());
             processFile(file);
         }
+        LOGGER.info("File upload finished successfully.");
     }
 
     /**
@@ -67,6 +70,7 @@ public class DialogExtractorController {
      * The file path of the downloaded file will be displayed in a text field.
      */
     private void downloadFile() {
+        LOGGER.info("Attempting to download file ...");
         Window window = downloadButton.getScene().getWindow();
         File outFile = chooseOutputFile(window);
         String outputText = processedContentArea.getText();
@@ -74,6 +78,7 @@ public class DialogExtractorController {
             downloadFilePath.setText(outFile.getAbsolutePath());
             writeToFile(outFile, outputText);
         }
+        LOGGER.info("File download finished successfully.");
     }
 
     /**
@@ -81,11 +86,13 @@ public class DialogExtractorController {
      * Sets the enabled/disabled state of the downloadButton depending on the extracted content.
      */
     private void extractContent() {
+        LOGGER.info("Attempting to extract content ...");
         String content = originalContentArea.getText();
         MinecraftLog minecraftLog = new MinecraftLog(content);
         String outputText = minecraftLog.extractDialog().log();
         processedContentArea.setText(outputText);
         downloadButton.setDisable(outputText.isEmpty());
+        LOGGER.info("Content extraction finished successfully.");
     }
 
     /**
@@ -110,6 +117,7 @@ public class DialogExtractorController {
      * @throws IllegalArgumentException If the input is not a file.
      */
     private void processFile(@NotNull File file) {
+        LOGGER.info("Attempting to process file ...");
         if (!file.isFile()) {
             throw new IllegalArgumentException("The input is not a file.");
         }
@@ -123,8 +131,9 @@ public class DialogExtractorController {
 
             originalContentArea.setText(content);
         } catch (IOException e) {
-            LOGGER.severe("An error occurred while processing the file: " + e.getMessage());
+            LOGGER.log(Level.SEVERE, "An error occurred while processing the file.", e);
         }
+        LOGGER.info("File processing finished successfully.");
     }
 
     /**
@@ -195,10 +204,12 @@ public class DialogExtractorController {
      * @param content The content to write.
      */
     private void writeToFile(File file, String content) {
+        LOGGER.info("Attempting to write to file ...");
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
             writer.write(content);
         } catch (IOException e) {
-            LOGGER.severe("An error occurred while writing to the file: " + e.getMessage());
+            LOGGER.log(Level.SEVERE, "An error occurred while writing to the file.", e);
         }
+        LOGGER.info("File writing finished successfully.");
     }
 }
