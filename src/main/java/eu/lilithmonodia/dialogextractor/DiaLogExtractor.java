@@ -15,16 +15,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The DialogExtractor class extends the Application class and serves as the entry point for the application.
+ * The DiaLogExtractor class extends the Application class and serves as the entry point for the application.
  * It displays the main scene of the Dialog Extractor application.
  */
-public class DialogExtractor extends Application {
-    private static final Logger LOGGER = Logger.getLogger(DialogExtractor.class.getName());
+public class DiaLogExtractor extends Application {
+    private static final Logger LOGGER = Logger.getLogger(DiaLogExtractor.class.getName());
     private static final String STYLESHEET = new PrimerDark().getUserAgentStylesheet();
 
     /**
      * The main method is the entry point of the application.
-     * It launches the DialogExtractor application
+     * It launches the DiaLogExtractor application
      * by calling the launch method with the provided command line arguments.
      *
      * @param args the command line arguments
@@ -47,7 +47,7 @@ public class DialogExtractor extends Application {
 
         Application.setUserAgentStylesheet(STYLESHEET);
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("DialogExtractor.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DiaLogExtractor.fxml"));
             LOGGER.info("FXML file loaded successfully.");
 
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("icon.png")));
