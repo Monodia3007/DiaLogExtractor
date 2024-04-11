@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
+import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
+
 /**
  * The DialogExtractorController class handles the processing of dialog extraction from an input file.
  * It provides methods for uploading a file, extracting content, and downloading the processed content to an output file.
@@ -122,7 +124,7 @@ public class DiaLogExtractorController {
      * @throws IllegalArgumentException If the input is not a file.
      */
     private void processFile(@NotNull File file) {
-        logAction("Attempting to process file ...");
+        logAction(LOGGER, "Attempting to process file ...");
         if (!Files.isRegularFile(file.toPath())) {
             throw new IllegalArgumentException("The input is not a file.");
         }
@@ -136,7 +138,7 @@ public class DiaLogExtractorController {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "An error occurred while processing the file.", e);
         }
-        logAction("File processing finished successfully.");
+        logAction(LOGGER, "File processing finished successfully.");
     }
 
     /**
@@ -186,10 +188,6 @@ public class DiaLogExtractorController {
         }
     }
 
-    private void logAction(String action) {
-        LOGGER.info(action);
-    }
-
     /**
      * Sets up the file chooser with the specified title, extension filter description, and extensions.
      *
@@ -211,12 +209,12 @@ public class DiaLogExtractorController {
      * @param content The content to write.
      */
     private void writeToFile(File file, String content) {
-        logAction("Attempting to write to file ...");
+        logAction(LOGGER, "Attempting to write to file ...");
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
             writer.write(content);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "An error occurred while writing to the file.", e);
         }
-        logAction("File writing finished successfully.");
+        logAction(LOGGER, "File writing finished successfully.");
     }
 }

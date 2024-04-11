@@ -14,6 +14,8 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
+
 /**
  * The DiaLogExtractor class extends the Application class and serves as the entry point for the application.
  * It displays the main scene of the Dialog Extractor application.
@@ -30,9 +32,9 @@ public class DiaLogExtractor extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        LOGGER.info("Application launch started...");
+        logAction(LOGGER, "Application launch started...");
         launch(args);
-        LOGGER.info("Application launch completed.");
+        logAction(LOGGER, "Application launch completed.");
     }
 
     /**
@@ -43,15 +45,15 @@ public class DiaLogExtractor extends Application {
      */
     @Override
     public void start(@NotNull Stage stage) {
-        LOGGER.info("Preparing to start the application...");
+        logAction(LOGGER, "Preparing to start the application...");
 
         Application.setUserAgentStylesheet(STYLESHEET);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DiaLogExtractor.fxml"));
-            LOGGER.info("FXML file loaded successfully.");
+            logAction(LOGGER, "FXML file loaded successfully.");
 
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("icon.png")));
-            LOGGER.info("Application icon loaded successfully.");
+            logAction(LOGGER, "Application icon loaded successfully.");
 
             stage.getIcons().add(icon);
 
@@ -59,11 +61,11 @@ public class DiaLogExtractor extends Application {
             stage.setScene(new Scene(root));
 
             stage.setTitle("DiaLog Extractor");
-            LOGGER.info("Application title set successfully.");
+            logAction(LOGGER, "Application title set successfully.");
 
             stage.setResizable(false);
             stage.show();
-            LOGGER.info("Application started successfully.");
+            logAction(LOGGER, "Application started successfully.");
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error loading FXML file", e);
         }

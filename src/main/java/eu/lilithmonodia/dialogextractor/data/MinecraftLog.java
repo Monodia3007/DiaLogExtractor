@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
+
 public record MinecraftLog(String log) {
 
     private static final Logger LOGGER = Logger.getLogger(MinecraftLog.class.getName());
@@ -19,11 +21,11 @@ public record MinecraftLog(String log) {
      */
     @NotNull
     public MinecraftLog extractDialog() {
-        LOGGER.info("Extracting dialog from Minecraft log...");
+        logAction(LOGGER, "Extracting dialog from Minecraft log...");
 
         List<String> extractedDialogs = cleanAndExtractDialog();
 
-        LOGGER.info("Dialog extraction completed successfully.");
+        logAction(LOGGER, "Dialog extraction completed successfully.");
         return new MinecraftLog(String.join("\n", extractedDialogs));
     }
 
@@ -33,7 +35,7 @@ public record MinecraftLog(String log) {
      * @return A list of cleaned dialogues without the dialogue prefix and color codes.
      */
     private List<String> cleanAndExtractDialog() {
-        LOGGER.info("Cleaning and extracting dialogues from Minecraft log...");
+        logAction(LOGGER, "Cleaning and extracting dialogues from Minecraft log...");
 
         List<String> extractedDialogs = Arrays.stream(log.split("\n"))
                 .filter(line -> line.contains(DIALOG_PREFIX))
@@ -41,7 +43,7 @@ public record MinecraftLog(String log) {
                 .filter(cleanedLine -> !"Shaders Reloaded!".equals(cleanedLine))
                 .toList();
 
-        LOGGER.info("Dialogues cleaning and extraction completed.");
+        logAction(LOGGER, "Dialogs cleaned and extracted successfully.");
 
         return extractedDialogs;
     }
