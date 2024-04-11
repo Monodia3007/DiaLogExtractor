@@ -18,6 +18,10 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
+/**
+ * The DialogExtractorController class handles the processing of dialog extraction from an input file.
+ * It provides methods for uploading a file, extracting content, and downloading the processed content to an output file.
+ */
 public class DialogExtractorController {
     private static final Logger LOGGER = Logger.getLogger(DialogExtractorController.class.getName());
 

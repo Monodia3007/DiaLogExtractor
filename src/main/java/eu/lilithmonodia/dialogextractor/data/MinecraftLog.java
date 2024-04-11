@@ -15,6 +15,11 @@ import java.util.regex.Pattern;
  */
 public record MinecraftLog(String log) {
     private static final Logger LOGGER = Logger.getLogger(MinecraftLog.class.getName());
+
+    /**
+     * Regular expression pattern for matching color codes in Minecraft logs.
+     * Color codes are represented by a section symbol followed by a single character.
+     */
     public static final String COLOUR_CODE_REGEX = "§.";
 
     private static final Pattern DIALOG_PATTERN = Pattern.compile("^\\[\\d*:\\d*:\\d*] \\[Render thread/INFO]: \\[System] \\[CHAT].*$", Pattern.MULTILINE);
