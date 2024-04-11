@@ -6,8 +6,8 @@ usability, and efficient log processing.
 
 ## Usage
 
-Upon launching the application, you are presented with a simple, intuitive interface featuring three primary actions: *
-*Upload File**, **Extract**, and **Download File**.
+Upon launching the application, you are presented with a simple, intuitive interface featuring three primary actions: 
+**Upload File**, **Extract**, and **Download File**.
 
 ### Upload File
 
