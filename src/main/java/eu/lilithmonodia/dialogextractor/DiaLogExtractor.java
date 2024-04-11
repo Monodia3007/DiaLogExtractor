@@ -58,7 +58,7 @@ public class DiaLogExtractor extends Application {
             Parent root = loader.load();
             stage.setScene(new Scene(root));
 
-            stage.setTitle("Dialog Extractor");
+            stage.setTitle("DiaLog Extractor");
             LOGGER.info("Application title set successfully.");
 
             stage.setResizable(false);
