@@ -13,6 +13,9 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
+/**
+ * FileUtils is a utility class that provides various file operations.
+ */
 public class FileUtils {
     private static final Charset WINDOWS_CHARSET = Charset.forName("windows-1252");
     private static final Logger LOGGER = Logger.getLogger(FileUtils.class.getName());
@@ -39,6 +42,7 @@ public class FileUtils {
      * the originalContentArea text area.
      *
      * @param file The file to process.
+     * @param originalContentArea The text area to set the content in.
      *
      * @throws IllegalArgumentException If the input is not a file.
      */

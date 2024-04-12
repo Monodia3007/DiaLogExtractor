@@ -30,6 +30,13 @@ public class LogUtils {
         logger.log(Level.INFO, msg);
     }
 
+    /**
+     * Logs an error message, along with the corresponding exception, using the provided logger.
+     *
+     * @param logger The logger to use for logging.
+     * @param msg    The error message to log.
+     * @param e      The exception associated with the error.
+     */
     public static void logError(@NotNull Logger logger, String msg, Throwable e) {
         logger.log(Level.SEVERE, msg, e);
     }
