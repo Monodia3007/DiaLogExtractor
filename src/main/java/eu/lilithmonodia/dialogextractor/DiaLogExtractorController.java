@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.logging.Logger;
 
 import static eu.lilithmonodia.dialogextractor.utils.FileUtils.*;
+import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
 
 /**
  * The DialogExtractorController class handles the processing of dialog extraction from an input file.
@@ -53,14 +54,14 @@ public class DiaLogExtractorController {
      * path is displayed in the uploadFilePath text field and the file is processed.
      */
     private void uploadFile() {
-        LOGGER.info("Attempting to upload file ...");
+        logAction(LOGGER, "Attempting to upload file ...");
         Window window = uploadButton.getScene().getWindow();
         File file = chooseFile(window, false);
         if (file != null) {
             uploadFilePath.setText(file.getAbsolutePath());
             processFile(file, originalContentArea);
         }
-        LOGGER.info("File upload finished successfully.");
+        logAction(LOGGER, "File upload finished successfully.");
     }
 
     /**
@@ -68,7 +69,7 @@ public class DiaLogExtractorController {
      * The file path of the downloaded file will be displayed in a text field.
      */
     private void downloadFile() {
-        LOGGER.info("Attempting to download file ...");
+        logAction(LOGGER, "Attempting to download file ...");
         Window window = downloadButton.getScene().getWindow();
         File outFile = chooseFile(window, true);
         String outputText = processedContentArea.getText();
@@ -76,7 +77,7 @@ public class DiaLogExtractorController {
             downloadFilePath.setText(outFile.getAbsolutePath());
             writeToFile(outFile, outputText);
         }
-        LOGGER.info("File download finished successfully.");
+        logAction(LOGGER, "File download finished successfully.");
     }
 
     /**
@@ -84,12 +85,12 @@ public class DiaLogExtractorController {
      * Sets the enabled/disabled state of the downloadButton depending on the extracted content.
      */
     private void extractContent() {
-        LOGGER.info("Attempting to extract content ...");
+        logAction(LOGGER, "Attempting to extract content ...");
         String content = originalContentArea.getText();
         MinecraftLog minecraftLog = new MinecraftLog(content);
         String outputText = minecraftLog.extractDialog().log();
         processedContentArea.setText(outputText);
         downloadButton.setDisable(outputText.isEmpty());
-        LOGGER.info("Content extraction finished successfully.");
+        logAction(LOGGER, "Content extraction finished successfully.");
     }
 }

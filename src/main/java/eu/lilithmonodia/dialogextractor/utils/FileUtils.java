@@ -13,6 +13,9 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
+import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
+import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logError;
+
 /**
  * FileUtils class provides utility methods for file operations.
  * This class cannot be instantiated or extended as it contains only static methods.
@@ -56,7 +59,7 @@ public class FileUtils {
      * @throws IllegalArgumentException If the input is not a file.
      */
     public static void processFile(@NotNull File file, @NotNull TextArea originalContentArea) {
-        LogUtils.logAction(LOGGER, "Attempting to process file ...");
+        logAction(LOGGER, "Attempting to process file ...");
         if (!Files.isRegularFile(file.toPath())) {
             throw new IllegalArgumentException("The input is not a file.");
         }
@@ -68,9 +71,9 @@ public class FileUtils {
             };
             originalContentArea.setText(content);
         } catch (IOException e) {
-            LogUtils.logError(LOGGER, "An error occurred while processing the file.", e);
+            logError(LOGGER, "An error occurred while processing the file.", e);
         }
-        LogUtils.logAction(LOGGER, "File processing finished successfully.");
+        logAction(LOGGER, "File processing finished successfully.");
     }
 
     /**
@@ -125,12 +128,12 @@ public class FileUtils {
      * @param content The content to write to the file.
      */
     public static void writeToFile(File file, String content) {
-        LogUtils.logAction(LOGGER, "Attempting to write to file ...");
+        logAction(LOGGER, "Attempting to write to file ...");
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
             writer.write(content);
         } catch (IOException e) {
-            LogUtils.logError(LOGGER, "An error occurred while writing to the file.", e);
+            logError(LOGGER, "An error occurred while writing to the file.", e);
         }
-        LogUtils.logAction(LOGGER, "File writing finished successfully.");
+        logAction(LOGGER, "File writing finished successfully.");
     }
 }
