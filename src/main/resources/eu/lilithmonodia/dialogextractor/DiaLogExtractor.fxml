@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea"
             fx:controller="eu.lilithmonodia.dialogextractor.DiaLogExtractorController">
-    <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1">
+    <VBox fx:id="root" alignment="CENTER">
         <TextArea fx:id="originalContentArea" promptText="Original content will be displayed here..." wrapText="true">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -18,7 +18,8 @@
         <HBox alignment="CENTER" spacing="10">
             <Button fx:id="uploadButton" prefWidth="114.0" text="Upload File"/>
             <TextField fx:id="uploadFilePath" editable="false" maxHeight="1.7976931348623157E308"
-                       maxWidth="1.7976931348623157E308" prefWidth="434.0"/>
+                       maxWidth="1.7976931348623157E308" prefWidth="434.0"
+                       promptText="Drag the file or use the upload button"/>
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </VBox.margin>
@@ -45,4 +46,11 @@
             </font>
         </TextArea>
     </VBox>
+    <Pane fx:id="dragAndDropOverlay" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+          prefHeight="611.0" prefWidth="603.0" visible="false">
+        <children>
+            <TextArea disable="true" editable="false" layoutX="218.0" layoutY="282.0" opacity="0.8" prefHeight="36.0"
+                      prefWidth="167.0" text="Drag and Drop the file" wrapText="true"/>
+        </children>
+    </Pane>
 </AnchorPane>
