@@ -21,12 +21,16 @@ public class LogUtils {
     }
 
     /**
-     * Logs an action using the provided logger.
+     * Logs an msg using the provided logger.
      *
      * @param logger The logger to use for logging.
-     * @param action The action to log.
+     * @param msg The msg to log.
      */
-    public static void logAction(@NotNull Logger logger, String action) {
-        logger.log(Level.INFO, action);
+    public static void logAction(@NotNull Logger logger, String msg) {
+        logger.log(Level.INFO, msg);
+    }
+
+    public static void logError(@NotNull Logger logger, String msg, Throwable e) {
+        logger.log(Level.SEVERE, msg, e);
     }
 }

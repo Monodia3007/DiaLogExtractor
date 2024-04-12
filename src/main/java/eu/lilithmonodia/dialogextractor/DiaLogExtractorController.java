@@ -1,6 +1,7 @@
 package eu.lilithmonodia.dialogextractor;
 
 import eu.lilithmonodia.dialogextractor.data.MinecraftLog;
+import eu.lilithmonodia.dialogextractor.utils.LogUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -13,12 +14,9 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
-
-import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
 
 /**
  * The DialogExtractorController class handles the processing of dialog extraction from an input file.
@@ -124,7 +122,7 @@ public class DiaLogExtractorController {
      * @throws IllegalArgumentException If the input is not a file.
      */
     private void processFile(@NotNull File file) {
-        logAction(LOGGER, "Attempting to process file ...");
+        LogUtils.logAction(LOGGER, "Attempting to process file ...");
         if (!Files.isRegularFile(file.toPath())) {
             throw new IllegalArgumentException("The input is not a file.");
         }
@@ -136,9 +134,9 @@ public class DiaLogExtractorController {
             };
             originalContentArea.setText(content);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "An error occurred while processing the file.", e);
+            LogUtils.logError(LOGGER, "An error occurred while processing the file.", e);
         }
-        logAction(LOGGER, "File processing finished successfully.");
+        LogUtils.logAction(LOGGER, "File processing finished successfully.");
     }
 
     /**
@@ -209,12 +207,12 @@ public class DiaLogExtractorController {
      * @param content The content to write.
      */
     private void writeToFile(File file, String content) {
-        logAction(LOGGER, "Attempting to write to file ...");
+        LogUtils.logAction(LOGGER, "Attempting to write to file ...");
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
             writer.write(content);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "An error occurred while writing to the file.", e);
+            LogUtils.logError(LOGGER, "An error occurred while writing to the file.", e);
         }
-        logAction(LOGGER, "File writing finished successfully.");
+        LogUtils.logAction(LOGGER, "File writing finished successfully.");
     }
 }

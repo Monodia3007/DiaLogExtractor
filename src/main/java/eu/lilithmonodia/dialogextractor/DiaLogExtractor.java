@@ -1,6 +1,7 @@
 package eu.lilithmonodia.dialogextractor;
 
 import atlantafx.base.theme.PrimerDark;
+import eu.lilithmonodia.dialogextractor.utils.LogUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
@@ -67,7 +67,7 @@ public class DiaLogExtractor extends Application {
             stage.show();
             logAction(LOGGER, "Application started successfully.");
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Error loading FXML file", e);
+            LogUtils.logError(LOGGER, "Error loading FXML file", e);
         }
     }
 }
