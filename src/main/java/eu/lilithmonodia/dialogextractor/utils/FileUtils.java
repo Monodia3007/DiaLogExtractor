@@ -14,36 +14,45 @@ import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
 /**
- * FileUtils is a utility class that provides various file operations.
+ * FileUtils class provides utility methods for file operations.
+ * This class cannot be instantiated or extended as it contains only static methods.
  */
 public class FileUtils {
     private static final Charset WINDOWS_CHARSET = Charset.forName("windows-1252");
     private static final Logger LOGGER = Logger.getLogger(FileUtils.class.getName());
 
+    /**
+     * The FileUtils class provides utility methods for file-related operations.
+     * <p>
+     * This class cannot be instantiated or extended, as it contains only static methods.
+     */
     private FileUtils() {
         throw new IllegalStateException("Utility class");
     }
 
     /**
-     * Chooses a file from a file chooser dialog.
+     * Allows the user to choose a file using a file chooser dialog.
      *
-     * @param window The window associated with the file chooser dialog.
-     *
-     * @return The chosen file, or null if no file was selected.
+     * @param window        The parent window of the file chooser dialog.
+     * @param isSaveDialog  A flag indicating whether the file chooser should be a save dialog or an open dialog.
+     *                      If true, a save dialog will be shown. If false, an open dialog will be shown.
+     * @return The chosen file, or null if no file was chosen.
      */
-    public static File chooseFile(Window window) {
+    public static File chooseFile(Window window, boolean isSaveDialog) {
         FileChooser fileChooser = new FileChooser();
+        if (isSaveDialog) {
+            setupFileChooser(fileChooser, "Save As", "TXT files (*.txt)", "*.txt");
+            return fileChooser.showSaveDialog(window);
+        }
         setupFileChooser(fileChooser, "Open Minecraft Log File", "GZ files (*.gz), Log files (*.log)", "*.gz", "*.log");
         return fileChooser.showOpenDialog(window);
     }
 
     /**
-     * Processes a file by decompressing a gzip file or reading a log file, and sets the content in
-     * the originalContentArea text area.
+     * Processes a file and sets its content in a TextArea.
      *
-     * @param file The file to process.
-     * @param originalContentArea The text area to set the content in.
-     *
+     * @param file                The file to process.
+     * @param originalContentArea The TextArea in which to set the processed file content.
      * @throws IllegalArgumentException If the input is not a file.
      */
     public static void processFile(@NotNull File file, @NotNull TextArea originalContentArea) {
@@ -65,11 +74,10 @@ public class FileUtils {
     }
 
     /**
-     * Retrieves the file extension of a given File object.
+     * Returns the file extension of the given file.
      *
-     * @param file The File object for which to retrieve the file extension.
-     *
-     * @return The file extension of the given File object, or an empty string if no extension is present.
+     * @param file The file for which to retrieve the extension.
+     * @return The file extension or an empty string if the file has no extension.
      */
     private static @NotNull String getFileExtension(@NotNull File file) {
         String fileName = file.getName();
@@ -81,26 +89,11 @@ public class FileUtils {
     }
 
     /**
-     * Chooses a file from a file chooser dialog.
+     * Decompresses a GZIP-compressed file and returns its content as a string.
      *
-     * @param window The window associated with the file chooser dialog.
-     *
-     * @return The chosen file, or null if no file was selected.
-     */
-    public static File chooseOutputFile(Window window) {
-        FileChooser outputFileChooser = new FileChooser();
-        setupFileChooser(outputFileChooser, "Save As", "TXT files (*.txt)", "*.txt");
-        return outputFileChooser.showSaveDialog(window);
-    }
-
-    /**
-     * Decompresses a gzip file and returns the content as a string.
-     *
-     * @param file The file to decompress.
-     *
+     * @param file The GZIP-compressed file to decompress.
      * @return The decompressed content of the file.
-     *
-     * @throws IOException If an I/O error occurs.
+     * @throws IOException If an I/O error occurs while decompressing the file.
      */
     private static String decompressGzip(File file) throws IOException {
         try (InputStream fileIn = Files.newInputStream(file.toPath());
@@ -112,12 +105,12 @@ public class FileUtils {
     }
 
     /**
-     * Sets up the file chooser with the specified title, extension filter description, and extensions.
+     * Sets up the file chooser with the provided parameters.
      *
-     * @param fileChooser                The file chooser to set up.
-     * @param dialogTitle                The title of the file chooser dialog.
+     * @param fileChooser             The file chooser to set up.
+     * @param dialogTitle             The title of the file chooser dialog.
      * @param extensionFilterDescription The description of the file extension filter.
-     * @param extensionFilterExtensions  The file extensions to include in the file extension filter.
+     * @param extensionFilterExtensions The file extension filter.
      */
     private static void setupFileChooser(@NotNull FileChooser fileChooser, String dialogTitle, String extensionFilterDescription, String... extensionFilterExtensions) {
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
@@ -126,10 +119,10 @@ public class FileUtils {
     }
 
     /**
-     * Writes the given content to the specified file.
+     * Writes the specified content to the given file.
      *
      * @param file    The file to write to.
-     * @param content The content to write.
+     * @param content The content to write to the file.
      */
     public static void writeToFile(File file, String content) {
         LogUtils.logAction(LOGGER, "Attempting to write to file ...");

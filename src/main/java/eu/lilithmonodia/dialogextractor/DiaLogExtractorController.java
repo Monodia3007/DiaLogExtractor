@@ -55,7 +55,7 @@ public class DiaLogExtractorController {
     private void uploadFile() {
         LOGGER.info("Attempting to upload file ...");
         Window window = uploadButton.getScene().getWindow();
-        File file = chooseFile(window);
+        File file = chooseFile(window, false);
         if (file != null) {
             uploadFilePath.setText(file.getAbsolutePath());
             processFile(file, originalContentArea);
@@ -70,7 +70,7 @@ public class DiaLogExtractorController {
     private void downloadFile() {
         LOGGER.info("Attempting to download file ...");
         Window window = downloadButton.getScene().getWindow();
-        File outFile = chooseOutputFile(window);
+        File outFile = chooseFile(window, true);
         String outputText = processedContentArea.getText();
         if (outFile != null && !outputText.isEmpty()) {
             downloadFilePath.setText(outFile.getAbsolutePath());
