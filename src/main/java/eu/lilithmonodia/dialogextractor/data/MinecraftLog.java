@@ -26,12 +26,12 @@ public record MinecraftLog(String log) {
      * @return A {@link MinecraftLog} object containing the extracted dialogues.
      */
     @NotNull
-    public MinecraftLog extractDialog() {
-        logAction(LOGGER, "Extracting dialog from Minecraft log...");
+    public MinecraftLog extractDialogue() {
+        logAction(LOGGER, "Extracting dialogue from Minecraft log...");
 
-        List<String> extractedDialogs = cleanAndExtractDialog();
+        List<String> extractedDialogs = cleanAndExtractDialogue();
 
-        logAction(LOGGER, "Dialog extraction completed successfully.");
+        logAction(LOGGER, "Dialogue extraction completed successfully.");
         return new MinecraftLog(String.join("\n", extractedDialogs));
     }
 
@@ -40,7 +40,7 @@ public record MinecraftLog(String log) {
      *
      * @return A list of cleaned dialogues without the dialogue prefix and color codes.
      */
-    private List<String> cleanAndExtractDialog() {
+    private List<String> cleanAndExtractDialogue() {
         logAction(LOGGER, "Cleaning and extracting dialogues from Minecraft log...");
 
         List<String> extractedDialogs = Arrays.stream(log.split("\n"))
@@ -49,7 +49,7 @@ public record MinecraftLog(String log) {
                 .filter(cleanedLine -> !"Shaders Reloaded!".equals(cleanedLine))
                 .toList();
 
-        logAction(LOGGER, "Dialogs cleaned and extracted successfully.");
+        logAction(LOGGER, "Dialogues cleaned and extracted successfully.");
 
         return extractedDialogs;
     }

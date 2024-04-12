@@ -139,7 +139,7 @@ public class DiaLogExtractorController {
         logAction(LOGGER, "Attempting to extract content ...");
         String content = originalContentArea.getText();
         MinecraftLog minecraftLog = new MinecraftLog(content);
-        String outputText = minecraftLog.extractDialog().log();
+        String outputText = minecraftLog.extractDialogue().log();
         processedContentArea.setText(outputText);
         downloadButton.setDisable(outputText.isEmpty());
         logAction(LOGGER, "Content extraction finished successfully.");

@@ -66,8 +66,8 @@ class MinecraftLogTest {
     }
 
     @Test
-    void testExtractDialog() {
-        MinecraftLog result = minecraftLog.extractDialog();
+    void testExtractDialogue() {
+        MinecraftLog result = minecraftLog.extractDialogue();
         assertNotNull(result, "Extracted MinecraftLog should not be null");
         assertEquals(CLEANED_LOG_SAMPLE, result.log(), "The Minecraft log was not extracted and cleaned correctly.");
     }
