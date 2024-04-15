@@ -58,6 +58,10 @@ class MinecraftLogTest {
                 [15:50:16] [Render thread/INFO]: [System] [CHAT] <§fKohaku§f [dit fort]> iorghrhbaoiuhubraiomp.
                 [15:50:19] [Render thread/INFO]: [System] [CHAT] <§fKohaku§f [dit]> riuyaypbaeezv.
                 [15:50:22] [Render thread/INFO]: [System] [CHAT] * §fKohaku§f riupyagbirmbveyu. *
+                [CHAT] <§fKohaku§f [dit]> hello§eworld.
+                <§fKohaku§f [dit]> hello
+                <§fKohaku§f [dit fort]> good morning."
+                [CHAT] Shaders Reloaded!
                 """;
         minecraftLog = new MinecraftLog(LOG_SAMPLE);
     }
@@ -70,7 +74,8 @@ class MinecraftLogTest {
                 <Kohaku [dit]> h_uh^bthaah?.
                 <Kohaku [dit fort]> iorghrhbaoiuhubraiomp.
                 <Kohaku [dit]> riuyaypbaeezv.
-                * Kohaku riupyagbirmbveyu. *""";
+                * Kohaku riupyagbirmbveyu. *
+                <Kohaku [dit]> helloworld.""";
         assertEquals(CLEANED_LOG_SAMPLE, result.log(), "The Minecraft log was not extracted and cleaned correctly.");
     }
 
@@ -79,34 +84,6 @@ class MinecraftLogTest {
         MinecraftLog result = new MinecraftLog("").extractDialogue();
         assertNotNull(result, "Extracted MinecraftLog should not be null");
         assertTrue(result.log().isEmpty(), "The Minecraft log should be empty string.");
-    }
-
-    @Test
-    void testExtractDialogueWithColorCodes() {
-        String logWithColorCodes = "[CHAT] <§fKohaku§f [dit]> hello§eworld.\n" +
-                "[CHAT] <§fKohaku§f [dit fort]> goo§dmorning.";
-        String expectedCleanedDialog = "<Kohaku [dit]> helloworld.\n" +
-                "<Kohaku [dit fort]> goomorning.";
-        MinecraftLog result = new MinecraftLog(logWithColorCodes).extractDialogue();
-        assertEquals(expectedCleanedDialog, result.log(), "The Minecraft log was not extracted and cleaned correctly.");
-    }
-
-
-    @Test
-    void testExtractDialogueWithNoCHATPrefix() {
-        String logWithoutCHATPrefix = "<§fKohaku§f [dit]> hello\n" +
-                "<§fKohaku§f [dit fort]> good morning.";
-        MinecraftLog result = new MinecraftLog(logWithoutCHATPrefix).extractDialogue();
-        assertTrue(result.log().isEmpty(), "Output should be empty when there is no [CHAT] prefix.");
-    }
-
-    @Test
-    void testExtractDialogueWithShadersReloaded() {
-        String logWithShadersReloaded = "[CHAT] Shaders Reloaded!\n" +
-                "[CHAT] <§fKohaku§f [dit fort]> good morning.";
-        String expectedDialog = "<Kohaku [dit fort]> good morning.";
-        MinecraftLog result = new MinecraftLog(logWithShadersReloaded).extractDialogue();
-        assertEquals(expectedDialog, result.log(), "The line with 'Shaders Reloaded!' should be excluded.");
     }
 
     /**
