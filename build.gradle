@@ -37,9 +37,11 @@ dependencies {
     // Indicate libraries the project needs to compile and run
     implementation 'org.jetbrains:annotations:24.0.0'
     implementation 'io.github.mkpaz:atlantafx-base:2.0.1'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
     // Indicate libraries needed for testing this project
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testImplementation 'org.mockito:mockito-core:3.2.4'
 }
 
 // Jar Config - Configurations for the `Jar` tasks.
