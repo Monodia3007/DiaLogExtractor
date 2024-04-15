@@ -7,7 +7,6 @@
  *     <li><b>atlantafx.base:</b> Provides additional UI controls and functionalities.</li>
  *     <li><b>org.jetbrains.annotations:</b> Delivers annotations for code analysis.</li>
  *     <li><b>java.logging:</b> Facilitates logging capabilities.</li>
- *     <li><b>java.desktop:</b> Grants access to the desktop features.</li>
  * </ul>
  * <h3>Package Accessibility: </h3>
  * <ul>
