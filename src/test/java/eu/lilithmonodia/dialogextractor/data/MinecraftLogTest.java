@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test case for the constructor of the LogUtils class.
+ * It checks if the constructor is private and if it throws an exception when accessed.
+ */
 class MinecraftLogTest {
     public static final String LOG_SAMPLE = """
             [15:50:05] [Render thread/WARN]: Shader clouds could not find uniform named ModelViewMat in the specified shader program.
@@ -59,12 +63,17 @@ class MinecraftLogTest {
 
     /**
      * Sets up the test environment before each test case is executed.
+     * It initializes the minecraftLog object with the LOG_SAMPLE.
      */
     @BeforeEach
     void setUp() {
         minecraftLog = new MinecraftLog(LOG_SAMPLE);
     }
 
+    /**
+     * Test case for the extractDialogue method of MinecraftLog class.
+     * It extracts the dialogue from the log and checks if the result is as expected.
+     */
     @Test
     void testExtractDialogue() {
         MinecraftLog result = minecraftLog.extractDialogue();
@@ -78,6 +87,10 @@ class MinecraftLogTest {
         assertEquals(CLEANED_LOG_SAMPLE, result.log(), "The Minecraft log was not extracted and cleaned correctly.");
     }
 
+    /**
+     * Test case for the extractDialogue method of MinecraftLog class with an empty log.
+     * It checks if the result is an empty string.
+     */
     @Test
     void testExtractDialogueWithEmptyLog() {
         MinecraftLog result = new MinecraftLog("").extractDialogue();
@@ -86,8 +99,8 @@ class MinecraftLogTest {
     }
 
     /**
-     * Tests the {@link MinecraftLog#extractDialogue()} method when the log is null.
-     * Expects a NullPointerException to be thrown.
+     * Test case for the extractDialogue method of MinecraftLog class with a null log.
+     * It checks if a NullPointerException is thrown.
      */
     @Test
     void testExtractDialogueWithNullLog() {
