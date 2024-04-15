@@ -8,6 +8,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.0.0'
     id "org.sonarqube" version "4.4.1.3373"
     id 'jacoco'
+    id 'idea'
 }
 
 // Basic Metadata - This section contains basic metadata for your project.
@@ -126,5 +127,12 @@ jacocoTestReport {
     dependsOn test // Make jacocoTestReport dependent on the successful completion of test task.
     reports {
         xml.required = true  // Enable XML report.
+    }
+
+    idea {
+        module {
+            downloadJavadoc = true
+            downloadSources = true
+        }
     }
 }
