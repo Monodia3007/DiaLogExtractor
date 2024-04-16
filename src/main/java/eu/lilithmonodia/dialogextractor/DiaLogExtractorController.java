@@ -91,8 +91,13 @@ public class DiaLogExtractorController {
         logAction(LOGGER, "Content extraction finished successfully.");
     }
 
+    /**
+     * Handles the drag over event when a file is dragged over the target area.
+     *
+     * @param event The event containing information about the drag over.
+     */
     @FXML
-    private void dragOver(@NotNull DragEvent event) {
+    private void handleDragOver(@NotNull DragEvent event) {
         if (event.getDragboard().hasFiles()) {
             // Allow for both copying and moving, whatever user chooses.
             event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
@@ -102,13 +107,22 @@ public class DiaLogExtractorController {
         event.consume();
     }
 
+    /**
+     * Hides the drag and drop overlay when a drag operation exits the target area.
+     * This method is called when the dragExit event is fired.
+     */
     @FXML
-    private void dragExit() {
+    private void handleDragExit() {
         dragAndDropOverlay.setVisible(false);
     }
 
+    /**
+     * Handles the drag and drop event when a file is dropped over the target area.
+     *
+     * @param event The event containing information about the drag and drop.
+     */
     @FXML
-    private void dragDrop(@NotNull DragEvent event) {
+    private void handleDragDrop(@NotNull DragEvent event) {
         Dragboard dragboard = event.getDragboard();
         if (dragboard.hasFiles()) {
             File file = dragboard.getFiles().get(0);
