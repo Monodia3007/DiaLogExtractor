@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane onDragDropped="#dragDrop" onDragExited="#dragExit" onDragOver="#dragOver" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.lilithmonodia.dialogextractor.DiaLogExtractorController">
-    <VBox fx:id="root" alignment="CENTER">
+    <VBox alignment="CENTER">
         <TextArea fx:id="originalContentArea" promptText="Original content will be displayed here..." wrapText="true">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -36,7 +36,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </HBox>
-        <Button fx:id="extractButton" onAction="#extractContent" prefWidth="114.0" text="Extract">
+        <Button onAction="#extractContent" prefWidth="114.0" text="Extract">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
