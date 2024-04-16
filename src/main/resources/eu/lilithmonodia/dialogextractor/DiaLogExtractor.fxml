@@ -22,7 +22,7 @@
             </font>
         </TextArea>
         <HBox alignment="CENTER">
-            <Button fx:id="uploadButton" onAction="#uploadFile" prefWidth="114.0" text="Upload File">
+            <Button fx:id="uploadButton" onAction="#handleUpload" prefWidth="114.0" text="Upload File">
                 <HBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </HBox.margin>
@@ -36,13 +36,13 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </HBox>
-        <Button onAction="#extractContent" prefWidth="114.0" text="Extract">
+        <Button onAction="#handleExtraction" prefWidth="114.0" text="Extract">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </Button>
         <HBox alignment="CENTER">
-            <Button fx:id="downloadButton" disable="true" onAction="#downloadFile" prefWidth="114.0" text="Download File">
+            <Button fx:id="downloadButton" disable="true" onAction="#handleDownload" prefWidth="114.0" text="Download File">
                 <HBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </HBox.margin>

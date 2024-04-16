@@ -48,7 +48,7 @@ public class DiaLogExtractorController {
      * path is displayed in the uploadFilePath text field and the file is processed.
      */
     @FXML
-    private void uploadFile() {
+    private void handleUpload() {
         logAction(LOGGER, "Attempting to upload file ...");
         Window window = uploadButton.getScene().getWindow();
         File file = chooseFile(window, false);
@@ -64,7 +64,7 @@ public class DiaLogExtractorController {
      * The file path of the downloaded file will be displayed in a text field.
      */
     @FXML
-    private void downloadFile() {
+    private void handleDownload() {
         logAction(LOGGER, "Attempting to download file ...");
         Window window = downloadButton.getScene().getWindow();
         File outFile = chooseFile(window, true);
@@ -81,7 +81,7 @@ public class DiaLogExtractorController {
      * Sets the enabled/disabled state of the downloadButton depending on the extracted content.
      */
     @FXML
-    private void extractContent() {
+    private void handleExtraction() {
         logAction(LOGGER, "Attempting to extract content ...");
         String content = originalContentArea.getText();
         MinecraftLog minecraftLog = new MinecraftLog(content);
