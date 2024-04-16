@@ -1,17 +1,16 @@
 package eu.lilithmonodia.dialogextractor;
 
 import eu.lilithmonodia.dialogextractor.data.MinecraftLog;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Window;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.logging.Logger;
@@ -29,8 +28,6 @@ public class DiaLogExtractorController {
     @FXML
     private Button uploadButton;
     @FXML
-    private Button extractButton;
-    @FXML
     private Button downloadButton;
     @FXML
     private TextArea originalContentArea;
@@ -42,54 +39,6 @@ public class DiaLogExtractorController {
     private TextField downloadFilePath;
     @FXML
     private Pane dragAndDropOverlay;
-    @FXML
-    private VBox root;
-
-    /**
-     * Initializes the controller.
-     */
-    @FXML
-    public void initialize() {
-        Platform.runLater(this::initializeDragAndDropFunctionality);
-    }
-
-    private void initializeDragAndDropFunctionality() {
-        Scene scene = root.getScene();
-
-        scene.setOnDragOver(event -> {
-            // If drag board has files.
-            if (event.getDragboard().hasFiles()) {
-                // Allow for both copying and moving, whatever user chooses.
-                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                // Show overlay
-                dragAndDropOverlay.setVisible(true);
-            }
-            event.consume();
-        });
-
-        scene.setOnDragExited(event -> {
-            // Hide overlay
-            dragAndDropOverlay.setVisible(false);
-            event.consume();
-        });
-
-        scene.setOnDragDropped(event -> {
-            Dragboard dragboard = event.getDragboard();
-            boolean success = false;
-            // If this is a file drag event
-            if (dragboard.hasFiles()) {
-                File file = dragboard.getFiles().get(0); // Let's take the first file only
-                uploadFilePath.setText(file.getAbsolutePath());
-                processFile(file, originalContentArea);
-                success = true;
-            }
-            // Hide overlay
-            dragAndDropOverlay.setVisible(false);
-            // let the source know whether the file was successfully transferred and used
-            event.setDropCompleted(success);
-            event.consume();
-        });
-    }
 
     /**
      * Uploads a file to a specified location.
@@ -140,5 +89,32 @@ public class DiaLogExtractorController {
         processedContentArea.setText(outputText);
         downloadButton.setDisable(outputText.isEmpty());
         logAction(LOGGER, "Content extraction finished successfully.");
+    }
+
+    @FXML
+    private void dragOver(@NotNull DragEvent event) {
+        if (event.getDragboard().hasFiles()) {
+            // Allow for both copying and moving, whatever user chooses.
+            event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            // Show overlay
+            dragAndDropOverlay.setVisible(true);
+        }
+        event.consume();
+    }
+
+    @FXML
+    private void dragExit() {
+        dragAndDropOverlay.setVisible(false);
+    }
+
+    @FXML
+    private void dragDrop(@NotNull DragEvent event) {
+        Dragboard dragboard = event.getDragboard();
+        if (dragboard.hasFiles()) {
+            File file = dragboard.getFiles().get(0);
+            uploadFilePath.setText(file.getAbsolutePath());
+            processFile(file, originalContentArea);
+        }
+        dragAndDropOverlay.setVisible(false);
     }
 }
