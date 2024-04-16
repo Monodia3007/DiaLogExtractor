@@ -36,9 +36,9 @@ public class FileUtils {
     /**
      * Allows the user to choose a file using a file chooser dialog.
      *
-     * @param window        The parent window of the file chooser dialog.
-     * @param isSaveDialog  A flag indicating whether the file chooser should be a save dialog or an open dialog.
-     *                      If true, a save dialog will be shown. If false, an open dialog will be shown.
+     * @param window       The parent window of the file chooser dialog.
+     * @param isSaveDialog A flag indicating whether the file chooser should be a save dialog or an open dialog.
+     *                     If true, a save dialog will be shown. If false, an open dialog will be shown.
      * @return The chosen file, or null if no file was chosen.
      */
     public static File chooseFile(Window window, boolean isSaveDialog) {
@@ -110,10 +110,10 @@ public class FileUtils {
     /**
      * Sets up the file chooser with the provided parameters.
      *
-     * @param fileChooser             The file chooser to set up.
-     * @param dialogTitle             The title of the file chooser dialog.
+     * @param fileChooser                The file chooser to set up.
+     * @param dialogTitle                The title of the file chooser dialog.
      * @param extensionFilterDescription The description of the file extension filter.
-     * @param extensionFilterExtensions The file extension filter.
+     * @param extensionFilterExtensions  The file extension filter.
      */
     private static void setupFileChooser(@NotNull FileChooser fileChooser, String dialogTitle, String extensionFilterDescription, String... extensionFilterExtensions) {
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));

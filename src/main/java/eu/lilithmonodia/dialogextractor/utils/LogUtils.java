@@ -24,7 +24,7 @@ public class LogUtils {
      * Logs an msg using the provided logger.
      *
      * @param logger The logger to use for logging.
-     * @param msg The msg to log.
+     * @param msg    The msg to log.
      */
     public static void logAction(@NotNull Logger logger, String msg) {
         logger.log(Level.INFO, msg);
