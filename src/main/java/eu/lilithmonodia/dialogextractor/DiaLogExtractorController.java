@@ -50,12 +50,6 @@ public class DiaLogExtractorController {
      */
     @FXML
     public void initialize() {
-        this.uploadButton.setOnAction(event -> uploadFile());
-        this.extractButton.setOnAction(event -> extractContent());
-        this.downloadButton.setOnAction(event -> downloadFile());
-        this.downloadButton.setDisable(true);
-
-        // Allow the upload button to accept drag dropping of files.
         Platform.runLater(this::initializeDragAndDropFunctionality);
     }
 
@@ -104,6 +98,7 @@ public class DiaLogExtractorController {
      * and prompts the user to choose a file. If a file is selected, its absolute
      * path is displayed in the uploadFilePath text field and the file is processed.
      */
+    @FXML
     private void uploadFile() {
         logAction(LOGGER, "Attempting to upload file ...");
         Window window = uploadButton.getScene().getWindow();
@@ -119,6 +114,7 @@ public class DiaLogExtractorController {
      * Downloads a file by writing the content from a text area to a specified output file.
      * The file path of the downloaded file will be displayed in a text field.
      */
+    @FXML
     private void downloadFile() {
         logAction(LOGGER, "Attempting to download file ...");
         Window window = downloadButton.getScene().getWindow();
@@ -135,6 +131,7 @@ public class DiaLogExtractorController {
      * Extracts content from the originalContentArea, processes it, and sets the processed content in the processedContentArea.
      * Sets the enabled/disabled state of the downloadButton depending on the extracted content.
      */
+    @FXML
     private void extractContent() {
         logAction(LOGGER, "Attempting to extract content ...");
         String content = originalContentArea.getText();
