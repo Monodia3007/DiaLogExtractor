@@ -3,6 +3,7 @@ package eu.lilithmonodia.dialogextractor;
 import eu.lilithmonodia.dialogextractor.data.MinecraftLog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
@@ -13,6 +14,8 @@ import javafx.stage.Window;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 import static eu.lilithmonodia.dialogextractor.utils.FileUtils.*;
@@ -23,6 +26,8 @@ import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
  * It provides methods for uploading a file, extracting content, and downloading the processed content to an output file.
  */
 public class DiaLogExtractorController {
+    private static final Charset WINDOWS_CHARSET = Charset.forName("windows-1252");
+    private static final Charset UTF8 = StandardCharsets.UTF_8;
     private static final Logger LOGGER = Logger.getLogger(DiaLogExtractorController.class.getName());
 
     @FXML
@@ -39,6 +44,15 @@ public class DiaLogExtractorController {
     private TextField downloadFilePath;
     @FXML
     private Pane dragAndDropOverlay;
+    @FXML
+    ComboBox<Charset> encodingComboBox;
+
+    @FXML
+    private void initialize () {
+        encodingComboBox.getItems().add(WINDOWS_CHARSET);
+        encodingComboBox.getItems().add(UTF8);
+        encodingComboBox.setValue(WINDOWS_CHARSET);
+    }
 
     /**
      * Uploads a file to a specified location.
@@ -54,7 +68,7 @@ public class DiaLogExtractorController {
         File file = chooseFile(window, false);
         if (file != null) {
             uploadFilePath.setText(file.getAbsolutePath());
-            processFile(file, originalContentArea);
+            processFile(file, originalContentArea, encodingComboBox.getValue());
         }
         logAction(LOGGER, "File upload finished successfully.");
     }
@@ -127,7 +141,7 @@ public class DiaLogExtractorController {
         if (dragboard.hasFiles()) {
             File file = dragboard.getFiles().get(0);
             uploadFilePath.setText(file.getAbsolutePath());
-            processFile(file, originalContentArea);
+            processFile(file, originalContentArea, encodingComboBox.getValue());
         }
         dragAndDropOverlay.setVisible(false);
     }

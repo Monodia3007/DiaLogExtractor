@@ -20,7 +20,6 @@ import static eu.lilithmonodia.dialogextractor.utils.LogUtils.*;
  * This class cannot be instantiated or extended as it contains only static methods.
  */
 public class FileUtils {
-    private static final Charset WINDOWS_CHARSET = Charset.forName("windows-1252");
     private static final Logger LOGGER = Logger.getLogger(FileUtils.class.getName());
 
     /**
@@ -57,15 +56,15 @@ public class FileUtils {
      * @param originalContentArea The TextArea in which to set the processed file content.
      * @throws IllegalArgumentException If the input is not a file.
      */
-    public static void processFile(@NotNull File file, @NotNull TextArea originalContentArea) {
+    public static void processFile(@NotNull File file, @NotNull TextArea originalContentArea, Charset charset) {
         logAction(LOGGER, "Attempting to process file ...");
         if (!Files.isRegularFile(file.toPath())) {
             throw new IllegalArgumentException("The input is not a file.");
         }
         try {
             var content = switch (getFileExtension(file)) {
-                case ".gz" -> decompressGzip(file);
-                case ".log" -> Files.readString(file.toPath(), WINDOWS_CHARSET);
+                case ".gz" -> decompressGzip(file, charset);
+                case ".log" -> Files.readString(file.toPath(), charset);
                 default -> throw new IOException("Unsupported file extension");
             };
             originalContentArea.setText(content);
@@ -97,10 +96,10 @@ public class FileUtils {
      * @return The decompressed content of the file.
      * @throws IOException If an I/O error occurs while decompressing the file.
      */
-    private static String decompressGzip(File file) throws IOException {
+    private static String decompressGzip(File file, Charset charset) throws IOException {
         try (InputStream fileIn = Files.newInputStream(file.toPath());
              GZIPInputStream gzipIn = new GZIPInputStream(fileIn);
-             Reader reader = new InputStreamReader(gzipIn, WINDOWS_CHARSET);
+             Reader reader = new InputStreamReader(gzipIn, charset);
              BufferedReader bufferedReader = new BufferedReader(reader)) {
             return bufferedReader.lines().collect(Collectors.joining("\n"));
         }
