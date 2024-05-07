@@ -13,7 +13,8 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import static eu.lilithmonodia.dialogextractor.utils.LogUtils.*;
+import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
+import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logError;
 
 /**
  * The DiaLogExtractor class extends the Application class and serves as the entry point for the application.

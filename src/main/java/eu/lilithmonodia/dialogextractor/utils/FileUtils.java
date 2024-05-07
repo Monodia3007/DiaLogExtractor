@@ -13,7 +13,8 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
-import static eu.lilithmonodia.dialogextractor.utils.LogUtils.*;
+import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
+import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logError;
 
 /**
  * FileUtils class provides utility methods for file operations.

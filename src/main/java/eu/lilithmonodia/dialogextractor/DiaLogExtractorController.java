@@ -29,7 +29,8 @@ public class DiaLogExtractorController {
     private static final Charset WINDOWS_CHARSET = Charset.forName("windows-1252");
     private static final Charset UTF8 = StandardCharsets.UTF_8;
     private static final Logger LOGGER = Logger.getLogger(DiaLogExtractorController.class.getName());
-
+    @FXML
+    ComboBox<Charset> encodingComboBox;
     @FXML
     private Button uploadButton;
     @FXML
@@ -44,11 +45,9 @@ public class DiaLogExtractorController {
     private TextField downloadFilePath;
     @FXML
     private Pane dragAndDropOverlay;
-    @FXML
-    ComboBox<Charset> encodingComboBox;
 
     @FXML
-    private void initialize () {
+    private void initialize() {
         encodingComboBox.getItems().add(WINDOWS_CHARSET);
         encodingComboBox.getItems().add(UTF8);
         encodingComboBox.setValue(WINDOWS_CHARSET);
