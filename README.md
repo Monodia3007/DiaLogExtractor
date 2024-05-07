@@ -1,15 +1,16 @@
 # DiaLogExtractor
 
-DiaLogExtractor is a Java application that enables Minecraft enthusiasts to efficiently extract dialog out from
-Minecraft log files. With a simple and easy-to-understand graphical user interface, the application utilizes advanced
-pattern-matching techniques to extract and add high readability to Minecraft's log files. It is based on the JavaFX
-library and is specifically designed for usability, readability, and efficient log processing.
+DiaLogExtractor is a Java application
+that enables Minecraft enthusiasts to efficiently extract dialog out from Minecraft log files.
+With a simple and easy-to-understand graphical user interface,
+the application uses advanced pattern-matching techniques to extract and add high readability to Minecraft's log files.
+It is based on the JavaFX library and is specifically designed for usability, readability, and efficient log processing.
 
 ## Installation
 
 Go to the release section of the repository and download the latest version of the application. Launch the .msi or .dmg
 file and follow the installation instructions. Once the installation is complete, you can launch the application from
-the desktop shortcut or the application folder. or you can download the .jar file and run it using the
+the desktop shortcut or the application folder. Or you can download the .jar file and run it using the
 command `java -jar DiaLogExtractor-<version>-<OS>.jar`.
 
 ## Usage
@@ -24,7 +25,7 @@ DiaLogExtractor provides a user-friendly GUI (Graphical User Interface) with thr
 
 Press the *Upload File* button to upload the log file (.gz or .log file types are supported). You can also use the
 drag-and-drop feature to upload the log file. Prior to the upload, you can select the encoding based on your preference.
-Post successful upload, the log data will be presented in the original content area.
+Post-successful upload, the log data will be presented in the original content area.
 
 ### Extract Dialog
 
