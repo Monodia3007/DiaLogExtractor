@@ -9,7 +9,8 @@ import java.lang.reflect.Modifier;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * The LogUtilsTest class contains unit tests for the LogUtils class.
