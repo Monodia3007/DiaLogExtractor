@@ -12,13 +12,12 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Window;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-
-import org.apache.logging.log4j.Logger;
 
 import static eu.lilithmonodia.dialogextractor.utils.FileUtils.*;
 import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;

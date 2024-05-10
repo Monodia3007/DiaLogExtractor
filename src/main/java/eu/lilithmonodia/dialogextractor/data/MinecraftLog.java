@@ -1,11 +1,11 @@
 package eu.lilithmonodia.dialogextractor.data;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
-import org.apache.logging.log4j.Logger;
 
 import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
 
