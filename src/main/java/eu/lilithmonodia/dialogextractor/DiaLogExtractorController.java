@@ -11,12 +11,14 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Window;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.Logger;
 
 import static eu.lilithmonodia.dialogextractor.utils.FileUtils.*;
 import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
@@ -28,7 +30,7 @@ import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
 public class DiaLogExtractorController {
     private static final Charset WINDOWS_CHARSET = Charset.forName("windows-1252");
     private static final Charset UTF8 = StandardCharsets.UTF_8;
-    private static final Logger LOGGER = Logger.getLogger(DiaLogExtractorController.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(DiaLogExtractorController.class);
     @FXML
     ComboBox<Charset> encodingComboBox;
     @FXML

@@ -1,10 +1,11 @@
 package eu.lilithmonodia.dialogextractor.data;
 
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.Logger;
 
 import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
 
@@ -17,7 +18,7 @@ public record MinecraftLog(String log) {
      * The regular expression pattern used to match and remove color codes in Minecraft chat messages.
      */
     public static final String COLOUR_CODE_REGEX = "§.";
-    private static final Logger LOGGER = Logger.getLogger(MinecraftLog.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(MinecraftLog.class);
     private static final String DIALOG_PREFIX = "[CHAT]";
 
     /**

@@ -2,8 +2,7 @@ package eu.lilithmonodia.dialogextractor.utils;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class provides utility methods for logging actions.
@@ -27,7 +26,7 @@ public class LogUtils {
      * @param msg    The msg to log.
      */
     public static void logAction(@NotNull Logger logger, String msg) {
-        logger.log(Level.INFO, msg);
+        logger.info(msg);
     }
 
     /**
@@ -38,6 +37,6 @@ public class LogUtils {
      * @param e      The exception associated with the error.
      */
     public static void logError(@NotNull Logger logger, String msg, Throwable e) {
-        logger.log(Level.SEVERE, msg, e);
+        logger.error(msg, e);
     }
 }

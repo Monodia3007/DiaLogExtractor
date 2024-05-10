@@ -7,11 +7,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
 import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logError;
@@ -21,7 +22,7 @@ import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logError;
  * It displays the main scene of the Dialog Extractor application.
  */
 public class DiaLogExtractor extends Application {
-    private static final Logger LOGGER = Logger.getLogger(DiaLogExtractor.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(DiaLogExtractor.class);
     private static final String STYLESHEET = new PrimerDark().getUserAgentStylesheet();
 
     /**

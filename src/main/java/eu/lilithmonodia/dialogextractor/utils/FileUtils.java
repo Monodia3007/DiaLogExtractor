@@ -3,13 +3,14 @@ package eu.lilithmonodia.dialogextractor.utils;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
@@ -21,7 +22,7 @@ import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logError;
  * This class cannot be instantiated or extended as it contains only static methods.
  */
 public class FileUtils {
-    private static final Logger LOGGER = Logger.getLogger(FileUtils.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(FileUtils.class);
 
     /**
      * The FileUtils class provides utility methods for file-related operations.
