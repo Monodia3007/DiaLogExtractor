@@ -39,6 +39,7 @@ public class FileUtils {
      * @param window       The parent window of the file chooser dialog.
      * @param isSaveDialog A flag indicating whether the file chooser should be a save dialog or an open dialog.
      *                     If true, a save dialog will be shown. If false, an open dialog will be shown.
+     *
      * @return The chosen file, or null if no file was chosen.
      */
     public static File chooseFile(Window window, boolean isSaveDialog) {
@@ -52,11 +53,14 @@ public class FileUtils {
     }
 
     /**
-     * Processes a file and sets its content in a TextArea.
+     * Processes a file and sets its content in a text area.
      *
      * @param file                The file to process.
-     * @param originalContentArea The TextArea in which to set the processed file content.
-     * @throws IllegalArgumentException If the input is not a file.
+     * @param originalContentArea The text area to set the processed content.
+     * @param charset             The character encoding of the file.
+     *                            If null, the default charset of the system will be used.
+     *
+     * @throws IllegalArgumentException if the input is not a regular file.
      */
     public static void processFile(@NotNull File file, @NotNull TextArea originalContentArea, Charset charset) {
         logAction(LOGGER, "Attempting to process file ...");
@@ -80,6 +84,7 @@ public class FileUtils {
      * Returns the file extension of the given file.
      *
      * @param file The file for which to retrieve the extension.
+     *
      * @return The file extension or an empty string if the file has no extension.
      */
     private static @NotNull String getFileExtension(@NotNull File file) {
@@ -95,7 +100,9 @@ public class FileUtils {
      * Decompresses a GZIP-compressed file and returns its content as a string.
      *
      * @param file The GZIP-compressed file to decompress.
+     *
      * @return The decompressed content of the file.
+     *
      * @throws IOException If an I/O error occurs while decompressing the file.
      */
     private static String decompressGzip(File file, Charset charset) throws IOException {

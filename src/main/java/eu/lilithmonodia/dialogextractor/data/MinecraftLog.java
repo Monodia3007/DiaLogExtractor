@@ -14,10 +14,7 @@ import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
  */
 public record MinecraftLog(String log) {
 
-    /**
-     * The regular expression pattern used to match and remove color codes in Minecraft chat messages.
-     */
-    public static final String COLOUR_CODE_REGEX = "§.";
+    private static final String COLOUR_CODE_REGEX = "§.";
     private static final Logger LOGGER = LogManager.getLogger(MinecraftLog.class);
     private static final String DIALOG_PREFIX = "[CHAT]";
 
@@ -59,6 +56,7 @@ public record MinecraftLog(String log) {
      * Cleans a chat line by removing the dialogue prefix and color codes.
      *
      * @param rawChatLine The raw chat line to be cleaned.
+     *
      * @return The cleaned chat line without the dialogue prefix and color codes.
      */
     private @NotNull String cleanChatLine(@NotNull String rawChatLine) {
