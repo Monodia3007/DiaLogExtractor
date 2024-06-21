@@ -6,6 +6,7 @@ import javafx.stage.Window;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -42,9 +43,10 @@ public class FileUtils {
      *
      * @return The chosen file, or null if no file was chosen.
      */
-    public static File chooseFile(Window window, boolean isSaveDialog) {
+    public static File chooseFile(Window window, boolean isSaveDialog, @Nullable String initialFileName) {
         FileChooser fileChooser = new FileChooser();
         if (isSaveDialog) {
+            fileChooser.setInitialFileName(initialFileName);
             setupFileChooser(fileChooser, "Save As", "TXT files (*.txt)", "*.txt");
             return fileChooser.showSaveDialog(window);
         }

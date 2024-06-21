@@ -47,6 +47,8 @@ public class DiaLogExtractorController {
     @FXML
     private Pane dragAndDropOverlay;
 
+    private String fileName;
+
     @FXML
     private void initialize() {
         encodingComboBox.getItems().add(WINDOWS_CHARSET);
@@ -65,8 +67,9 @@ public class DiaLogExtractorController {
     private void handleUpload() {
         logAction(LOGGER, "Attempting to upload file ...");
         Window window = uploadButton.getScene().getWindow();
-        File file = chooseFile(window, false);
+        File file = chooseFile(window, false, null);
         if (file != null) {
+            fileName = file.getName().split("\\.")[0];
             uploadFilePath.setText(file.getAbsolutePath());
             processFile(file, originalContentArea, encodingComboBox.getValue());
         }
@@ -81,7 +84,7 @@ public class DiaLogExtractorController {
     private void handleDownload() {
         logAction(LOGGER, "Attempting to download file ...");
         Window window = downloadButton.getScene().getWindow();
-        File outFile = chooseFile(window, true);
+        File outFile = chooseFile(window, true, fileName + "_dialogExtracted.txt");
         String outputText = processedContentArea.getText();
         if (outFile != null && !outputText.isEmpty()) {
             downloadFilePath.setText(outFile.getAbsolutePath());
