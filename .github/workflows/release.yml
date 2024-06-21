@@ -1,0 +1,40 @@
+name: Release Deployment
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macOS-latest ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: shadowJar
+      - name: Get the version
+        id: get_version
+        shell: bash
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - name: Rename the JAR
+        run: mv build/libs/DiaLogExtractor-${{ env.VERSION }}-shadow.jar build/libs/DiaLogExtractor-${{ matrix.os }}.jar
+      - name: Upload the JAR
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./build/libs/DiaLogExtractor-${{ matrix.os }}.jar
+          asset_name: DiaLogExtractor-${{ matrix.os }}.jar
+          asset_content_type: application/java-archive
