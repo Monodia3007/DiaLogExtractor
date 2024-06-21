@@ -21,10 +21,9 @@ jobs:
           distribution: 'temurin'
       - name: Set execute permissions for gradlew
         run: chmod +x gradlew
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: shadowJar
+      - name: Build with Gradle and jpackage
+        run: |
+          ./gradlew clean build jpackage
       - name: Get the version
         id: get_version
         shell: bash
@@ -40,3 +39,22 @@ jobs:
           asset_path: ./build/libs/DiaLogExtractor-${{ matrix.os }}.jar
           asset_name: DiaLogExtractor-${{ matrix.os }}.jar
           asset_content_type: application/java-archive
+      - name: Identify the jpackage output
+        run: |
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            echo "ASSET_PATH=./build/jpackage/DiaLog Extractor-${{ env.VERSION }}.msi" >> $GITHUB_ENV
+          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            echo "ASSET_PATH=./build/jpackage/DiaLogExtractor-${{ env.VERSION }}.dmg" >> $GITHUB_ENV
+          else
+            echo "ASSET_PATH=./build/jpackage/DiaLogExtractor-${{ env.VERSION }}.deb" >> $GITHUB_ENV
+          fi
+
+      - name: Upload the jpackage output
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ${{ env.ASSET_PATH }}
+          asset_name: ${{ env.ASSET_PATH }}
+          asset_content_type: application/octet-stream
