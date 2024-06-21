@@ -23,7 +23,7 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle and jpackage
         run: |
-          ./gradlew clean build jpackage
+          ./gradlew clean shadowJar jpackage
       - name: Get the version
         id: get_version
         shell: bash
@@ -47,8 +47,7 @@ jobs:
           elif [[ "${{ matrix.os }}" == "macOS-latest" ]]; then
             echo "ASSET_PATH=./build/jpackage/DiaLog Extractor-${{ env.VERSION }}.dmg" >> $GITHUB_ENV
           else
-            ls -l build/jpackage
-            echo "ASSET_PATH=./build/jpackage/DiaLog Extractor-${{ env.VERSION }}-1_amd64.deb" >> $GITHUB_ENV
+            echo "ASSET_PATH=./build/jpackage/dialog-extractor_${{ env.VERSION }}-1_amd64.deb" >> $GITHUB_ENV
           fi
       - name: Upload the jpackage output
         uses: actions/upload-release-asset@v1
