@@ -47,7 +47,7 @@ jobs:
           elif [[ "${{ matrix.os }}" == "macOS-latest" ]]; then
             echo "ASSET_PATH=./build/jpackage/DiaLog Extractor-${{ env.VERSION }}.dmg" >> $GITHUB_ENV
           else
-            echo "ASSET_PATH=./build/jpackage/DiaLog Extractor-${{ env.VERSION }}-1_amd64.deb" >> $GITHUB_ENV
+            echo "ASSET_PATH=./build/jpackage/DiaLog Extractor-${{ env.VERSION }}*.deb" >> $GITHUB_ENV
           fi
       - name: Upload the jpackage output
         uses: actions/upload-release-asset@v1
