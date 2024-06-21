@@ -49,13 +49,15 @@ jobs:
           else
             echo "ASSET_PATH=./build/jpackage/dialog-extractor_${{ env.VERSION }}-1_amd64.deb" >> $GITHUB_ENV
           fi
-      - name: Upload the jpackage output
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+      - name: Extract filename
         run: |
           ASSET_NAME=$(basename ${{ env.ASSET_PATH }})
           echo "ASSET_NAME=$ASSET_NAME" >> $GITHUB_ENV
+
+      - name: Upload the jpackage output
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: ${{ env.ASSET_PATH }}
