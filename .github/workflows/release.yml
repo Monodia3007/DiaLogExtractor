@@ -40,14 +40,16 @@ jobs:
           asset_name: DiaLogExtractor-${{ matrix.os }}.jar
           asset_content_type: application/java-archive
       - name: Identify the jpackage output
+        shell: bash
         run: |
           if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
             echo "ASSET_PATH=./build/jpackage/DiaLog Extractor-${{ env.VERSION }}.msi" >> $GITHUB_ENV
           elif [[ "${{ matrix.os }}" == "macOS-latest" ]]; then
             echo "ASSET_PATH=./build/jpackage/DiaLog Extractor-${{ env.VERSION }}.dmg" >> $GITHUB_ENV
+          else
+            echo "ASSET_PATH=./build/jpackage/DiaLog Extractor-${{ env.VERSION }}-1_amd64.deb" >> $GITHUB_ENV
           fi
       - name: Upload the jpackage output
-        if: matrix.os != 'ubuntu-latest'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}

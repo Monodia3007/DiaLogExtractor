@@ -87,7 +87,7 @@ jlink {
             imageOptions = ['--icon', 'src/main/resources/eu/lilithmonodia/dialogextractor/icon.icns']
             installerOptions = ['--mac-package-name', 'DiaLogExtractor', '--mac-package-identifier', 'eu.lilithmonodia.dialogextractor']
         } else {
-            installerOptions = ['--linux-shortcut', '--linux-menu-group', 'DiaLog Extractor']
+            installerOptions = ['--type', 'deb', '--linux-shortcut', '--linux-menu-group', 'DiaLog Extractor']
         }
     }
 }
