@@ -52,7 +52,7 @@ jobs:
       - name: Extract filename
         shell: bash
         run: |
-          ASSET_NAME=$(basename ${{ env.ASSET_PATH }})
+          ASSET_NAME=$(basename "${{ env.ASSET_PATH }}")
           echo "ASSET_NAME=$ASSET_NAME" >> $GITHUB_ENV
           echo $ASSET_NAME
 
