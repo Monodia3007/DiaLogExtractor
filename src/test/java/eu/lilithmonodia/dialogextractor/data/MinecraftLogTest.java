@@ -104,7 +104,7 @@ class MinecraftLogTest {
      */
     @Test
     void testExtractDialogueWithNullLog() {
-        MinecraftLog minecraftLog = new MinecraftLog(null);
+        minecraftLog = new MinecraftLog(null);
         assertThrows(NullPointerException.class, minecraftLog::extractDialogue);
     }
 }
