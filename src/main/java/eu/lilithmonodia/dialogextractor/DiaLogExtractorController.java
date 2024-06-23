@@ -84,7 +84,7 @@ public class DiaLogExtractorController {
     private void handleDownload() {
         logAction(LOGGER, "Attempting to download file ...");
         Window window = downloadButton.getScene().getWindow();
-        File outFile = chooseFile(window, true, fileName + "_dialogExtracted.txt");
+        File outFile = chooseFile(window, true, fileName + "-dialog-extracted.log");
         String outputText = processedContentArea.getText();
         if (outFile != null && !outputText.isEmpty()) {
             downloadFilePath.setText(outFile.getAbsolutePath());
@@ -143,6 +143,7 @@ public class DiaLogExtractorController {
         Dragboard dragboard = event.getDragboard();
         if (dragboard.hasFiles()) {
             File file = dragboard.getFiles().get(0);
+            fileName = file.getName().split("\\.")[0];
             uploadFilePath.setText(file.getAbsolutePath());
             processFile(file, originalContentArea, encodingComboBox.getValue());
         }

@@ -47,7 +47,7 @@ public class FileUtils {
         FileChooser fileChooser = new FileChooser();
         if (isSaveDialog) {
             fileChooser.setInitialFileName(initialFileName);
-            setupFileChooser(fileChooser, "Save As", "TXT files (*.txt)", "*.txt");
+            setupFileChooser(fileChooser, "Save As", "Log files (*.log)", "*.log");
             return fileChooser.showSaveDialog(window);
         }
         setupFileChooser(fileChooser, "Open Minecraft Log File", "GZ files (*.gz), Log files (*.log)", "*.gz", "*.log");
