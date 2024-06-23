@@ -86,7 +86,7 @@ jlink {
             installerOptions += ['--mac-package-name', 'DiaLogExtractor', '--mac-package-identifier', 'eu.lilithmonodia.dialogextractor']
         } else if (org.gradle.internal.os.OperatingSystem.current().linux) {
             imageOptions = ['--icon', 'src/main/resources/eu/lilithmonodia/dialogextractor/icon.png']
-            installerOptions += ['--type', 'deb', '--linux-shortcut', '--linux-menu-group', 'DiaLog Extractor', '--linux-menu-group', 'Utility']
+            installerOptions += ['--type', 'deb', '--linux-shortcut', '--linux-menu-group', 'Utility']
         }
     }
 }
