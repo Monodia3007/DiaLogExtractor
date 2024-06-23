@@ -13,7 +13,7 @@ plugins {
 
 // Basic Metadata - This section contains basic metadata for your project.
 group = 'eu.lilithmonodia'
-version = '1.3.1'
+version = '1.3.2'
 
 // Indicate where Gradle should look for dependencies
 repositories {
@@ -77,15 +77,16 @@ jlink {
         mainClassName = 'eu.lilithmonodia.dialogextractor.Launcher'
     }
     jpackage {
+        installerOptions = ['--name', 'DiaLog Extractor', '--app-version', "${version}", '--copyright', 'Lilith Camplin']
         if (org.gradle.internal.os.OperatingSystem.current().windows) {
             imageOptions = ['--icon', 'src/main/resources/eu/lilithmonodia/dialogextractor/icon.ico']
-            installerOptions = ['--win-shortcut', '--win-shortcut-prompt', '--win-menu', '--win-dir-chooser']
+            installerOptions += ['--win-shortcut', '--win-shortcut-prompt', '--win-menu', '--win-dir-chooser']
         } else if (org.gradle.internal.os.OperatingSystem.current().macOsX) {
             imageOptions = ['--icon', 'src/main/resources/eu/lilithmonodia/dialogextractor/icon.icns']
-            installerOptions = ['--mac-package-name', 'DiaLogExtractor', '--mac-package-identifier', 'eu.lilithmonodia.dialogextractor']
+            installerOptions += ['--mac-package-name', 'DiaLogExtractor', '--mac-package-identifier', 'eu.lilithmonodia.dialogextractor', '--mac-sign']
         } else if (org.gradle.internal.os.OperatingSystem.current().linux) {
             imageOptions = ['--icon', 'src/main/resources/eu/lilithmonodia/dialogextractor/icon.png']
-            installerOptions = ['--type', 'deb', '--linux-shortcut', '--linux-menu-group', 'DiaLog Extractor']
+            installerOptions += ['--type', 'deb', '--linux-shortcut', '--linux-menu-group', 'DiaLog Extractor', '--linux-menu-group', 'Utility']
         }
     }
 }
