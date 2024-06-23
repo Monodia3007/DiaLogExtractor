@@ -24,9 +24,6 @@ ext {
     junitVersion = '5.9.2'
 }
 
-// Source & Target Java Version
-sourceCompatibility = '17'
-targetCompatibility = '17'
 
 // Repositories - Specify which repositories gradle will use to fetch project dependencies.
 repositories {
@@ -55,7 +52,7 @@ jar {
     }
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
