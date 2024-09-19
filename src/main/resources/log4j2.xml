@@ -4,8 +4,9 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-        <RollingFile name="File" fileName="logs/app.log"
-                     filePattern="logs/app-%d{MM-dd-yy}-%i.log.gz">
+        <RollingFile name="File"
+                     fileName="${sys:user.home}/Dialog-Extractor-logs/Dialog-Extractor.log"
+                     filePattern="${sys:user.home}/Dialog-Extractor-logs/Dialog-Extractor-%d{MM-dd-yy}-%i.log.gz">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
             <Policies>
                 <OnStartupTriggeringPolicy />
