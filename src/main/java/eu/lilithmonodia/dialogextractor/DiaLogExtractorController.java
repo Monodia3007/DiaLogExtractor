@@ -24,6 +24,7 @@ import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
 
 /**
  * The DialogExtractorController class handles the processing of dialog extraction from an input file.
+ * <p>
  * It provides methods for uploading a file, extracting content, and downloading the processed content to an output file.
  */
 public class DiaLogExtractorController {
@@ -78,6 +79,7 @@ public class DiaLogExtractorController {
 
     /**
      * Downloads a file by writing the content from a text area to a specified output file.
+     * <p>
      * The file path of the downloaded file will be displayed in a text field.
      */
     @FXML
@@ -95,6 +97,7 @@ public class DiaLogExtractorController {
 
     /**
      * Extracts content from the originalContentArea, processes it, and sets the processed content in the processedContentArea.
+     * <p>
      * Sets the enabled/disabled state of the downloadButton depending on the extracted content.
      */
     @FXML
@@ -126,6 +129,7 @@ public class DiaLogExtractorController {
 
     /**
      * Hides the drag and drop overlay when a drag operation exits the target area.
+     * <p>
      * This method is called when the dragExit event is fired.
      */
     @FXML

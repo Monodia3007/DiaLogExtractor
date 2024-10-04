@@ -6,6 +6,7 @@ package eu.lilithmonodia.dialogextractor;
 public class Launcher {
     /**
      * The main method is the entry point of the application.
+     * <p>
      * It calls the main method of the DiaLogExtractor class to start the application.
      *
      * @param args the command line arguments

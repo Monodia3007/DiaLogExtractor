@@ -20,7 +20,8 @@ import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logError;
 
 /**
  * FileUtils class provides utility methods for file operations.
- * This class cannot be instantiated or extended as it contains only static methods.
+ * <p>
+ * This class can't be instantiated or extended as it contains only static methods.
  */
 public class FileUtils {
     private static final Logger LOGGER = LogManager.getLogger(FileUtils.class);
@@ -28,14 +29,14 @@ public class FileUtils {
     /**
      * The FileUtils class provides utility methods for file-related operations.
      * <p>
-     * This class cannot be instantiated or extended, as it contains only static methods.
+     * This class can't be instantiated or extended, as it contains only static methods.
      */
     private FileUtils() {
         throw new IllegalStateException("Utility class");
     }
 
     /**
-     * Allows the user to choose a file using a file chooser dialog.
+     * Allows the user to select a file using a file chooser dialog.
      *
      * @param window       The parent window of the file chooser dialog.
      * @param isSaveDialog A flag indicating whether the file chooser should be a save dialog or an open dialog.

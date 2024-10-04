@@ -36,7 +36,7 @@ public record MinecraftLog(String log) {
     /**
      * Cleans and extracts dialogues from the Minecraft log.
      *
-     * @return A list of cleaned dialogues without the dialogue prefix and color codes.
+     * @return A list of cleaned dialogues without the dialog prefix and color codes.
      */
     private List<String> cleanAndExtractDialogue() {
         logAction(LOGGER, "Cleaning and extracting dialogues from Minecraft log...");
@@ -53,11 +53,11 @@ public record MinecraftLog(String log) {
     }
 
     /**
-     * Cleans a chat line by removing the dialogue prefix and color codes.
+     * Cleans a chat line by removing the dialog prefix and color codes.
      *
      * @param rawChatLine The raw chat line to be cleaned.
      *
-     * @return The cleaned chat line without the dialogue prefix and color codes.
+     * @return The cleaned chat line without the dialog prefix and color codes.
      */
     private @NotNull String cleanChatLine(@NotNull String rawChatLine) {
         int chatIndex = rawChatLine.indexOf(DIALOG_PREFIX);
