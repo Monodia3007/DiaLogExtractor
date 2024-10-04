@@ -60,9 +60,8 @@ public class DiaLogExtractorController {
     /**
      * Uploads a file to a specified location.
      * <p>
-     * This method retrieves the current window from the upload button's scene
-     * and prompts the user to choose a file. If a file is selected, its absolute
-     * path is displayed in the uploadFilePath text field and the file is processed.
+     * This method retrieves the current window from the upload button's scene and prompts the user to select a file.
+     * If a file is selected, its absolute path is displayed in the uploadFilePath text field and the file is processed.
      */
     @FXML
     private void handleUpload() {
@@ -128,7 +127,7 @@ public class DiaLogExtractorController {
     }
 
     /**
-     * Hides the drag and drop overlay when a drag operation exits the target area.
+     * Hides the drag overlay when a drag operation exits the target area.
      * <p>
      * This method is called when the dragExit event is fired.
      */
@@ -138,9 +137,9 @@ public class DiaLogExtractorController {
     }
 
     /**
-     * Handles the drag and drop event when a file is dropped over the target area.
+     * Handles the drag event when a file is dropped over the target area.
      *
-     * @param event The event containing information about the drag and drop.
+     * @param event The event containing information about the drag.
      */
     @FXML
     private void handleDragDrop(@NotNull DragEvent event) {
