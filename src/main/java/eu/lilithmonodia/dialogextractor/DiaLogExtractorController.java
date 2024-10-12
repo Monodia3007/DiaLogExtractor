@@ -23,7 +23,7 @@ import static eu.lilithmonodia.dialogextractor.utils.FileUtils.*;
 import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logAction;
 
 /**
- * The DialogExtractorController class handles the processing of dialog extraction from an input file.
+ * The DialogExtractorController class handles the processing of dialogue extraction from an input file.
  * <p>
  * It provides methods for uploading a file, extracting content, and downloading the processed content to an output file.
  */

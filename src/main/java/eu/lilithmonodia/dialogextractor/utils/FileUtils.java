@@ -36,12 +36,12 @@ public class FileUtils {
     }
 
     /**
-     * Allows the user to select a file using a file chooser dialog.
+     * Allows the user to select a file using a file chooser dialogue.
      *
-     * @param window       The parent window of the file chooser dialog.
-     * @param isSaveDialog A flag indicating whether the file chooser should be a save dialog or an open dialog.
-     *                     If true, a save dialog will be shown. If false, an open dialog will be shown.
-     *
+     * @param window       The parent window of the file chooser dialogue.
+     * @param isSaveDialog A flag indicating whether the file chooser should be a save dialog or an open dialogue.
+     *                     If true, a save dialogue will be shown.
+     *                     If false, an open dialogue will be shown.
      * @return The chosen file, or null if no file was chosen.
      */
     public static File chooseFile(Window window, boolean isSaveDialog, @Nullable String initialFileName) {
@@ -62,7 +62,6 @@ public class FileUtils {
      * @param originalContentArea The text area to set the processed content.
      * @param charset             The character encoding of the file.
      *                            If null, the default charset of the system will be used.
-     *
      * @throws IllegalArgumentException if the input is not a regular file.
      */
     public static void processFile(@NotNull File file, @NotNull TextArea originalContentArea, Charset charset) {
@@ -87,7 +86,6 @@ public class FileUtils {
      * Returns the file extension of the given file.
      *
      * @param file The file for which to retrieve the extension.
-     *
      * @return The file extension or an empty string if the file has no extension.
      */
     private static @NotNull String getFileExtension(@NotNull File file) {
@@ -103,9 +101,7 @@ public class FileUtils {
      * Decompresses a GZIP-compressed file and returns its content as a string.
      *
      * @param file The GZIP-compressed file to decompress.
-     *
      * @return The decompressed content of the file.
-     *
      * @throws IOException If an I/O error occurs while decompressing the file.
      */
     private static String decompressGzip(File file, Charset charset) throws IOException {
@@ -121,7 +117,7 @@ public class FileUtils {
      * Sets up the file chooser with the provided parameters.
      *
      * @param fileChooser                The file chooser to set up.
-     * @param dialogTitle                The title of the file chooser dialog.
+     * @param dialogTitle                The title of the file chooser dialogue.
      * @param extensionFilterDescription The description of the file extension filter.
      * @param extensionFilterExtensions  The file extension filter.
      */

@@ -9,7 +9,7 @@
                      filePattern="${sys:user.home}/Dialog-Extractor-logs/Dialog-Extractor-%d{MM-dd-yy}-%i.log.gz">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
             <Policies>
-                <OnStartupTriggeringPolicy />
+                <OnStartupTriggeringPolicy/>
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>

@@ -19,7 +19,7 @@ import static eu.lilithmonodia.dialogextractor.utils.LogUtils.logError;
 
 /**
  * The DiaLogExtractor class extends the Application class and serves as the entry point for the application.
- * It displays the main scene of the Dialog Extractor application.
+ * It displays the main scene of the DialogExtractor application.
  */
 public class DiaLogExtractor extends Application {
     private static final Logger LOGGER = LogManager.getLogger(DiaLogExtractor.class);
