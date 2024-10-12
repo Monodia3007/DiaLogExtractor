@@ -63,7 +63,7 @@ class MinecraftLogTest {
 
     /**
      * Sets up the test environment before each test case is executed.
-     * It initializes the minecraftLog object with the LOG_SAMPLE.
+     * It initialises the minecraftLog object with the LOG_SAMPLE.
      */
     @BeforeEach
     void setUp() {
@@ -78,13 +78,13 @@ class MinecraftLogTest {
     void testExtractDialogue() {
         MinecraftLog result = minecraftLog.extractDialogue();
         assertNotNull(result, "Extracted MinecraftLog should not be null");
-        String CLEANED_LOG_SAMPLE = """
+        String cleanedLogSample = """
                 <Kohaku [dit]> h_uh^bthaah?.
                 <Kohaku [dit fort]> iorghrhbaoiuhubraiomp.
                 <Kohaku [dit]> riuyaypbaeezv.
                 * Kohaku riupyagbirmbveyu. *
                 <Kohaku [dit]> helloworld.""";
-        assertEquals(CLEANED_LOG_SAMPLE, result.log(), "The Minecraft log was not extracted and cleaned correctly.");
+        assertEquals(cleanedLogSample, result.log(), "The Minecraft log was not extracted and cleaned correctly.");
     }
 
     /**
