@@ -23,7 +23,6 @@ module eu.lilithmonodia.dialogextractor {
     requires javafx.fxml;
     requires atlantafx.base;
     requires org.jetbrains.annotations;
-    requires java.logging;
     requires org.apache.logging.log4j;
 
     opens eu.lilithmonodia.dialogextractor to javafx.fxml;
