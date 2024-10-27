@@ -145,7 +145,7 @@ public class DiaLogExtractorController {
     private void handleDragDrop(@NotNull DragEvent event) {
         Dragboard dragboard = event.getDragboard();
         if (dragboard.hasFiles()) {
-            File file = dragboard.getFiles().getFirst();
+            File file = dragboard.getFiles().get(0);
             fileName = file.getName().split("\\.")[0];
             uploadFilePath.setText(file.getAbsolutePath());
             processFile(file, originalContentArea, encodingComboBox.getValue());
