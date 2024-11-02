@@ -38,10 +38,11 @@ public class FileUtils {
     /**
      * Allows the user to select a file using a file chooser dialogue.
      *
-     * @param window       The parent window of the file chooser dialogue.
-     * @param isSaveDialog A flag indicating whether the file chooser should be a save dialogue or an open dialogue.
-     *                     If true, a save dialogue will be shown.
-     *                     If false, an open dialogue will be shown.
+     * @param window          The parent window of the file chooser dialogue.
+     * @param isSaveDialog    A flag indicating whether the file chooser should be a save dialogue or an open dialogue.
+     *                        If true, a save dialogue will be shown.
+     *                        If false, an open dialogue will be shown.
+     * @param initialFileName The initial name of the file
      * @return The chosen file, or null if no file was chosen.
      */
     public static File chooseFile(Window window, boolean isSaveDialog, @Nullable String initialFileName) {
