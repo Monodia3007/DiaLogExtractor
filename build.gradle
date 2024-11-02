@@ -41,7 +41,7 @@ dependencies {
     // Indicate libraries needed for testing this project
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
-    testImplementation 'org.mockito:mockito-core:3.2.4'
+    testImplementation 'org.mockito:mockito-core:5.14.2'
 }
 
 // Jar Config - Configurations for the `Jar` tasks.
